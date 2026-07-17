@@ -106,15 +106,15 @@ ipr="trust200902" updates="">
 
       <t>Practical applications however suggest that MANETs can act as
       either true stub networks (e.g., a cellphone providing an Internet
-      connection sharing peer for a multihop Wi-Fi mesh) or as "not-so-stubby"
-      networks (e.g., Intelligent Transportation Systems where the 5G/6G
-      "SideLink" service supports vehicle-to-vehicle (V2V) multihopping).
-      In the former case, the cellphone acts as an IP router for a stub
-      Wi-Fi MANET behind it and the individual Wi-Fi nodes act as dependent
-      nodes. In the latter case, individual 5G/6G SideLink nodes can connect
-      the stub MANETs they aggregate across not-so-stubby V2V multihop
-      forwarding paths. MANET Internetworking must therefore be capable
-      of accommodating all such scenarios.</t>
+      connection sharing peer for a local multihop Wi-Fi region) or as
+      "not-so-stubby" networks (e.g., Intelligent Transportation Systems
+      where the 5G/6G "SideLink" service supports vehicle-to-vehicle (V2V)
+      multihopping). In the former case, the cellphone acts as an IP
+      router for a stub Wi-Fi MANET behind it and the individual Wi-Fi
+      nodes act as dependent nodes. In the latter case, individual 5G/6G
+      SideLink nodes can connect the stub MANETs they aggregate across
+      not-so-stubby V2V multihop forwarding paths. MANET Internetworking
+      must therefore be capable of accommodating all such scenarios.</t>
 
       <t>A widely-accepted axiom at the time of this writing suggests
       that there are more cellphones than people on the planet <xref
@@ -601,39 +601,102 @@ ipr="trust200902" updates="">
     <section anchor="gap" title="MANET Internetworking Gap Analysis">
       <t>Many current and past solution proposals address some aspects
       of the problems articulated in the previous section, but often
-      have functional gaps that leave some problems unaddressed.</t>
+      have functional gaps that leave some problems unaddressed.
+      The following gaps must be closed by candidate solutions:</t>
 
-      <t>A first gap that any solution candidate must address is
-      the need for ordinary MANET nodes to discover and effectively
-      engage the best MANET border router(s) especially when multiple
-      alternatives may be present. For example, a MANET with 100
-      ordinary nodes may include 4 MANET border routers that also
-      have longer-range Internetworking links such as via LEO
-      satellites. Each MANET node must discover border routers
-      that may be multiple MANET local hops away and somehow cause
-      their packets to flow through the MANET to a border router
-      that in turn invokes MANET Internetworking. Any solution
-      proposal must therefore address this and other gaps.</t>
+      <section anchor="ga1" title="Gap 1: Multiple Heterogeneous MANET Interfaces">
+        <t>In anticipated practices, nodes will often have multiple and
+        heterogeneous MANET interfaces connected to the same MANET local
+        routing region. Most notably, the vast majority of cellphones
+        have both Wi-Fi and 5G cellular interfaces which will soon support
+        a "SideLink" mode of operation for device-to-device communications
+        outside of the context of cellular infrastructure.</t>
 
-      <t>The following sections provide a gap analysis for
-      candidate solutions:</t>
+        <t>With their Wi-Fi interfaces engaged in "ad-hoc" mode and 5G
+        interfaces engaged in "SideLink" mode, nodes within a MANET local
+        routing region can exchange control information and forward packets
+        across multiple hops if necessary even if some hops are carried
+        over Wi-Fi and others over 5G SideLink. A unique addressing scheme
+        is also necessary across the heterogeneous combined MANET region
+        to maintain consistent and compatible routing information. Most
+        importantly, the addressing schemes between the heterogeneous
+        media must be mutually compatible and address assignments must
+        be assured unique so that no duplication is possible.</t>
 
-      <section anchor="ga1" title="AERO/OMNI">
+        <t>Aside from cellphones and the like (which represent an enormous
+        use case space), multiple heterogeneous MANET interfaces often
+        occur on mobile platforms such as tactical military and/or
+        unmanned air systems. These same considerations also apply
+        within any such domains.</t>
       </section>
 
-      <section anchor="ga2" title="NEMO (RFC3963)">
+      <section anchor="ga2" title="Gap 2: Maximum Packet Size Diversity">
+        <t>In conjunction with Gap 1, heterogeneous MANET interfaces
+        often also support diverse maximum packet sizes also known
+        as the Maximum Transmission Unit (MTU). For example, the initial
+        and final hops of a multihop path may support MTUs of 1500 octets
+        or larger while some intermediate hops support MTUs as small as
+        1280 octets. Communications must therefore remain continuous and
+        without loss of large packets due to a path MTU "black hole". Any
+        solution proposal must therefore address the need for maximum
+        packet size diversity given the clear need to support
+        heterogeneous environments.</t>
       </section>
 
-      <section anchor="ga3" title="LISP-based mobility and overlays">
+      <section anchor="ga3" title="Gap 3: Header Compression">
+        <t>MANET data plane packets often include sizeable upper layer
+        headers including any encapsulations, the IP header and upper
+        layer protocol headers. Especially for smaller packet sizes,
+        the overhead for carrying significant header payloads can
+        waste precious wireless transmission bandwidth. Any solution
+        proposal must therefore address the need for header compression
+        for multi-hop packet flows.</t>
       </section>
 
-      <section anchor="ga4" title="HIP mobility">
+      <section anchor="ga4" title="Gap 4: MANET Border Router Discovery and Engagement">
+        <t>Ordinary MANET nodes must be able to discover and effectively
+        engage the best MANET border router(s) especially when multiple
+        alternatives may be present. For example, a MANET with 100
+        ordinary nodes may include 4 MANET border routers that also
+        have longer-range Internetworking links such as via LEO
+        satellites. Each MANET node must discover border routers
+        that may be multiple MANET local hops away and somehow cause
+        their packets to flow through the MANET to a border router
+        that in turn invokes MANET Internetworking. Any solution
+        proposal must therefore address these needs.</t>
       </section>
 
-      <section anchor="ga5" title="DLEP-based MANET deployments with gatewaying">
+      <section anchor="ga5" title="Gap 5: MANET Internetworking Security">
+        <t>The fact that a node is admitted into a MANET local routing
+        region does not ensure that the node is authorized to establish
+        flow state in the MANET and/or invoke MANET Internetworking
+        services. For that reason, a gap exists that requires a solution
+        for securely admitting MANET clients into the MANET Internetworking
+        service. Any solution proposal must therefore address the security
+        gap.</t>
+      </section>
+    </section>
+
+    <section anchor="sol" title="MANET Internetworking Solution Proposal Analysis">
+      <t>The following sections provide an analysis of solution proposals
+      with respect to the problem statements and gap analysis:</t>
+
+      <section anchor="sol1" title="AERO/OMNI">
       </section>
 
-      <section anchor="ga6" title="Conventional tunneling / prefix delegation approaches">
+      <section anchor="sol2" title="NEMO (RFC3963)">
+      </section>
+
+      <section anchor="sol3" title="LISP-based mobility and overlays">
+      </section>
+
+      <section anchor="sol4" title="HIP mobility">
+      </section>
+
+      <section anchor="sol5" title="DLEP-based MANET deployments with gatewaying">
+      </section>
+
+      <section anchor="sol6" title="Conventional tunneling / prefix delegation approaches">
       </section>
     </section>
 
