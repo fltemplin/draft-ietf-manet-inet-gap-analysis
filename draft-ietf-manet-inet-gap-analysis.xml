@@ -12,7 +12,7 @@
 <?rfc subcompact="no"?>
 <?rfc strict='yes'?>
 <?rfc iprnotified='no'?>
-<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-02"
+<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-03"
 ipr="trust200902" updates="">
   <front>
     <title abbrev="MANET Internetworking">MANET Internetworking: Problem Statement and Gap Analysis</title>
@@ -59,7 +59,7 @@ ipr="trust200902" updates="">
       </address>
     </author>
 
-    <date day="6" month="July" year="2026"/>
+    <date day="20" month="July" year="2026"/>
 
     <keyword>I-D</keyword>
 
