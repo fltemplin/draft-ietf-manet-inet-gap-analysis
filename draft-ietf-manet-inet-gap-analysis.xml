@@ -235,15 +235,15 @@ ipr="trust200902" updates="">
 
       <t><list style="hanging">
         <t hangText="Client"><vspace/>a MANET router that connects
-        to a multilink Internetworking service via Proxy/Servers in
-        a Non-Broadcast, Multiple Access (NBMA) overlay.</t>
+        a mobile network to a multilink Internetworking service via
+        Proxy/Servers in a Non-Broadcast, Multiple Access (NBMA) overlay.</t>
 
         <t hangText="Gateway"><vspace/>an overlay multilink network
         service node that runs an interdomain routing protocol (e.g.,
         BGP) and directory service (e.g., DNS) to track Client-to-MAP
         associations. Gateways furthermore join multiple Internetworking
-        segments in an overlay multilink virtual bridging service to
-        form larger Internetworks.</t>
+        segments in an overlay multilink virtual bridging service
+        to form larger Internetworks.</t>
        
         <t hangText="Internetwork"><vspace/>a more stable and wide-area
         terrestrial, non-terrestrial or hybrid network that can serve as

@@ -287,9 +287,9 @@ Internet-Draft            MANET Internetworking                July 2026
    The following terms are defined within the scope of this document:
 
    Client
-      a MANET router that connects to a multilink Internetworking
-      service via Proxy/Servers in a Non-Broadcast, Multiple Access
-      (NBMA) overlay.
+      a MANET router that connects a mobile network to a multilink
+      Internetworking service via Proxy/Servers in a Non-Broadcast,
+      Multiple Access (NBMA) overlay.
 
    Gateway
       an overlay multilink network service node that runs an interdomain
