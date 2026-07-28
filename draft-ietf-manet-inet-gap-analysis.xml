@@ -59,7 +59,7 @@ ipr="trust200902" updates="">
       </address>
     </author>
 
-    <date day="27" month="July" year="2026"/>
+    <date day="28" month="July" year="2026"/>
 
     <keyword>I-D</keyword>
 
@@ -602,7 +602,7 @@ ipr="trust200902" updates="">
         system according to the not-so-stubby model.</t>
       </section>
 
-      <section anchor="pr3" title="Problem 3: MANET-internal Communications">
+      <section anchor="pr3" title="Problem 3: MANET-local Communications">
         <t>Two nodes located within the same MANET local routing region should
         be able to communicate (across multiple hops if necessary) using MLA
         addressing with no external Internetwork infrastructure reference
@@ -616,6 +616,24 @@ ipr="trust200902" updates="">
         coordinated in multihop fashion using encapsulation and header
         compression via an overlay virtual link spanning any MANET
         intermediate hops in the path.</t>
+
+        <t>Header compression represents a fundamental requirement for
+        maximizing MANET-local communications efficiency, since the size
+        of the compressed encapsulation and upper layer protocol headers
+        is significantly smaller than the size of the uncompressed
+        upper layer headers when no encapsulation is applied. However,
+        header compression state must be synchronized between the endpoints
+        of each IP hop.</t>
+
+        <t>For L2-MANET, this means that only the MANET ingress and
+        egress nodes need to synchronize IP state since intermediate hops
+        are based on MAC layer addressing and forwarding. For L3-MANET,
+        all MANET hops between the ingress and egress nodes must also
+        synchronize state meaning that resynchronization is required
+        following a path change. A tension therefore exists between
+        L2-MANET which includes larger MAC headers and L3-MANET which
+        may be challenged to maintain state synchronization in dynamic
+        networks.</t>
       </section>
 
       <section anchor="pr4" title="Problem 4: MANET Peer to Internetwork Correspondent">
@@ -773,9 +791,18 @@ ipr="trust200902" updates="">
         headers including any encapsulations, the IP header and upper
         layer protocol headers. Especially for smaller packet sizes,
         the overhead for carrying significant header payloads can
-        waste precious wireless transmission bandwidth. Any solution
+        waste precious wireless transmission bandwidth.</t>
+
+        <t>L2- and L3-MANET solutions have different approaches
+        to header compression that may be better suited for some
+        operational scenarios than others. L2-MANET includes larger
+        L2 headers with every packet such that IP header compression
+        state is required at the MANET ingress and egress nodes only,
+        while L3-MANET uses minimal L2 headers but requires IP header
+        compression state also in MANET intermediate nodes. Any solution
         proposal must therefore address the need for header compression
-        for multi-hop packet flows.</t>
+        for multi-hop packet flows within the context of intended
+        use cases.</t>
       </section>
 
       <section anchor="ga4" title="Gap 4: MANET Border Router Discovery and Engagement">

@@ -5,8 +5,8 @@
 Network Working Group                                 F. L. Templin, Ed.
 Internet-Draft                                        The Boeing Company
 Intended status: Informational                           D. J. Jakubisin
-Expires: 28 January 2027      National Security Institute, Virginia Tech
-                                                            27 July 2026
+Expires: 29 January 2027      National Security Institute, Virginia Tech
+                                                            28 July 2026
 
 
        MANET Internetworking: Problem Statement and Gap Analysis
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 January 2027.
+   This Internet-Draft will expire on 29 January 2027.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 1]
+Templin & Jakubisin      Expires 29 January 2027                [Page 1]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -67,33 +67,33 @@ Table of Contents
    5.  MANET Internetworking Problem Statement . . . . . . . . . . .  10
      5.1.  Problem 1: Multilink Local Addressing . . . . . . . . . .  10
      5.2.  Problem 2: Autoconfiguration  . . . . . . . . . . . . . .  12
-     5.3.  Problem 3: MANET-internal Communications  . . . . . . . .  13
-     5.4.  Problem 4: MANET Peer to Internetwork Correspondent . . .  13
+     5.3.  Problem 3: MANET-local Communications . . . . . . . . . .  13
+     5.4.  Problem 4: MANET Peer to Internetwork Correspondent . . .  14
      5.5.  Problem 5: Internetwork Correspondent to MANET Peer . . .  14
-     5.6.  Problem 6: Peer-to-Peer Between Different MANETs  . . . .  14
+     5.6.  Problem 6: Peer-to-Peer Between Different MANETs  . . . .  15
      5.7.  Problem 7: Stub MANET to Not-so-stubby MANET
-           Connections . . . . . . . . . . . . . . . . . . . . . . .  15
+           Connections . . . . . . . . . . . . . . . . . . . . . . .  16
    6.  MANET Internetworking Gap Analysis  . . . . . . . . . . . . .  16
      6.1.  Gap 1: Multiple Heterogeneous MANET Interfaces  . . . . .  16
-     6.2.  Gap 2: Maximum Packet Size Diversity  . . . . . . . . . .  16
+     6.2.  Gap 2: Maximum Packet Size Diversity  . . . . . . . . . .  17
      6.3.  Gap 3: Header Compression . . . . . . . . . . . . . . . .  17
-     6.4.  Gap 4: MANET Border Router Discovery and Engagement . . .  17
-     6.5.  Gap 5: MANET Internetworking Security . . . . . . . . . .  17
-   7.  MANET Internetworking Solution Proposal Analysis  . . . . . .  17
-     7.1.  AERO/OMNI . . . . . . . . . . . . . . . . . . . . . . . .  17
-     7.2.  NEMO (RFC3963)  . . . . . . . . . . . . . . . . . . . . .  17
-     7.3.  LISP-based mobility and overlays  . . . . . . . . . . . .  17
-     7.4.  HIP mobility  . . . . . . . . . . . . . . . . . . . . . .  17
-     7.5.  DLEP-based MANET deployments with gatewaying  . . . . . .  17
+     6.4.  Gap 4: MANET Border Router Discovery and Engagement . . .  18
+     6.5.  Gap 5: MANET Internetworking Security . . . . . . . . . .  18
+   7.  MANET Internetworking Solution Proposal Analysis  . . . . . .  18
+     7.1.  AERO/OMNI . . . . . . . . . . . . . . . . . . . . . . . .  18
+     7.2.  NEMO (RFC3963)  . . . . . . . . . . . . . . . . . . . . .  18
+     7.3.  LISP-based mobility and overlays  . . . . . . . . . . . .  18
+     7.4.  HIP mobility  . . . . . . . . . . . . . . . . . . . . . .  18
+     7.5.  DLEP-based MANET deployments with gatewaying  . . . . . .  18
      7.6.  Conventional tunneling / prefix delegation approaches . .  18
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  18
-     11.2.  Informative References . . . . . . . . . . . . . . . . .  18
-   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  20
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  19
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  19
+     11.2.  Informative References . . . . . . . . . . . . . . . . .  19
+   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  21
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
 
 1.  Introduction
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 2]
+Templin & Jakubisin      Expires 29 January 2027                [Page 2]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -165,7 +165,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 3]
+Templin & Jakubisin      Expires 29 January 2027                [Page 3]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -221,7 +221,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 4]
+Templin & Jakubisin      Expires 29 January 2027                [Page 4]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -277,7 +277,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 5]
+Templin & Jakubisin      Expires 29 January 2027                [Page 5]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -333,7 +333,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 6]
+Templin & Jakubisin      Expires 29 January 2027                [Page 6]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -389,7 +389,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 7]
+Templin & Jakubisin      Expires 29 January 2027                [Page 7]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -445,7 +445,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 8]
+Templin & Jakubisin      Expires 29 January 2027                [Page 8]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -501,7 +501,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027                [Page 9]
+Templin & Jakubisin      Expires 29 January 2027                [Page 9]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -557,7 +557,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027               [Page 10]
+Templin & Jakubisin      Expires 29 January 2027               [Page 10]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -613,7 +613,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027               [Page 11]
+Templin & Jakubisin      Expires 29 January 2027               [Page 11]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -669,7 +669,7 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 28 January 2027               [Page 12]
+Templin & Jakubisin      Expires 29 January 2027               [Page 12]
 
 Internet-Draft            MANET Internetworking                July 2026
 
@@ -697,7 +697,7 @@ Internet-Draft            MANET Internetworking                July 2026
    while using the MANET border router as a transit intermediate system
    according to the not-so-stubby model.
 
-5.3.  Problem 3: MANET-internal Communications
+5.3.  Problem 3: MANET-local Communications
 
    Two nodes located within the same MANET local routing region should
    be able to communicate (across multiple hops if necessary) using MLA
@@ -712,6 +712,33 @@ Internet-Draft            MANET Internetworking                July 2026
    encapsulation and header compression via an overlay virtual link
    spanning any MANET intermediate hops in the path.
 
+   Header compression represents a fundamental requirement for
+   maximizing MANET-local communications efficiency, since the size of
+   the compressed encapsulation and upper layer protocol headers is
+   significantly smaller than the size of the uncompressed upper layer
+   headers when no encapsulation is applied.  However, header
+   compression state must be synchronized between the endpoints of each
+   IP hop.
+
+
+
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 13]
+
+Internet-Draft            MANET Internetworking                July 2026
+
+
+   For L2-MANET, this means that only the MANET ingress and egress nodes
+   need to synchronize IP state since intermediate hops are based on MAC
+   layer addressing and forwarding.  For L3-MANET, all MANET hops
+   between the ingress and egress nodes must also synchronize state
+   meaning that resynchronization is required following a path change.
+   A tension therefore exists between L2-MANET which includes larger MAC
+   headers and L3-MANET which may be challenged to maintain state
+   synchronization in dynamic networks.
+
 5.4.  Problem 4: MANET Peer to Internetwork Correspondent
 
    When an originating peer (or its stub MANET border router) within a
@@ -722,13 +749,6 @@ Internet-Draft            MANET Internetworking                July 2026
    addresses obtained through autoconfiguration and the global IP
    address of the Internetwork correspondent as the source and
    destination addresses for packet exchanges.
-
-
-
-Templin & Jakubisin      Expires 28 January 2027               [Page 13]
-
-Internet-Draft            MANET Internetworking                July 2026
-
 
    To initiate communications with an Internetwork correspondent, the
    MANET peer first establishes per-flow on-demand virtual circuits in
@@ -757,6 +777,15 @@ Internet-Draft            MANET Internetworking                July 2026
    peer within a MANET local routing region, the correspondent consults
    the global DNS to determine an IP address for the peer.
 
+
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 14]
+
+Internet-Draft            MANET Internetworking                July 2026
+
+
    The correspondent then forwards packets via standard Internet routing
    until they arrive at a relay.  The relay then establishes per-flow
    virtual circuits in the overlay to the MANET peer while forwarding
@@ -779,13 +808,6 @@ Internet-Draft            MANET Internetworking                July 2026
    segments, both peers should include their IP addresses in global DNS
    resource records for the same reasons cited in Section 5.5.
 
-
-
-Templin & Jakubisin      Expires 28 January 2027               [Page 14]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    The peers then establish per-flow virtual circuits in the overlay to
    support peer-to-peer packet forwarding.  The peers may use either an
    MNP address or their MLAs, which are routable within the overlay
@@ -805,6 +827,20 @@ Internet-Draft            MANET Internetworking                July 2026
    long as each partition includes a MANET border router with an
    Internetwork connection nodes within different partitions can
    continue to communicate using their MLAs.
+
+
+
+
+
+
+
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 15]
+
+Internet-Draft            MANET Internetworking                July 2026
+
 
 5.7.  Problem 7: Stub MANET to Not-so-stubby MANET Connections
 
@@ -830,18 +866,6 @@ Internet-Draft            MANET Internetworking                July 2026
    themselves.  All peer-to-peer communications are therefore conveyed
    across a globally-extended MANET Internetworking overlay.
 
-
-
-
-
-
-
-
-Templin & Jakubisin      Expires 28 January 2027               [Page 15]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
 6.  MANET Internetworking Gap Analysis
 
    Many current and past solution proposals address most aspects of the
@@ -857,6 +881,22 @@ Internet-Draft            MANET Internetworking                July 2026
    both Wi-Fi and 5G cellular interfaces which will soon support a
    "SideLink" mode of operation for device-to-device communications
    outside of the context of cellular infrastructure.
+
+
+
+
+
+
+
+
+
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 16]
+
+Internet-Draft            MANET Internetworking                July 2026
+
 
    With their Wi-Fi interfaces engaged in "ad-hoc" mode and 5G
    interfaces engaged in "SideLink" mode, nodes within a MANET local
@@ -887,25 +927,32 @@ Internet-Draft            MANET Internetworking                July 2026
    must therefore address the need for maximum packet size diversity
    given the clear need to support heterogeneous environments.
 
-
-
-
-
-
-
-Templin & Jakubisin      Expires 28 January 2027               [Page 16]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
 6.3.  Gap 3: Header Compression
 
    MANET data plane packets often include sizeable upper layer headers
    including any encapsulations, the IP header and upper layer protocol
    headers.  Especially for smaller packet sizes, the overhead for
    carrying significant header payloads can waste precious wireless
-   transmission bandwidth.  Any solution proposal must therefore address
-   the need for header compression for multi-hop packet flows.
+   transmission bandwidth.
+
+   L2- and L3-MANET solutions have different approaches to header
+   compression that may be better suited for some operational scenarios
+   than others.  L2-MANET includes larger L2 headers with every packet
+   such that IP header compression state is required at the MANET
+   ingress and egress nodes only, while L3-MANET uses minimal L2 headers
+   but requires IP header compression state also in MANET intermediate
+   nodes.  Any solution proposal must therefore address the need for
+   header compression for multi-hop packet flows within the context of
+   intended use cases.
+
+
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 17]
+
+Internet-Draft            MANET Internetworking                July 2026
+
 
 6.4.  Gap 4: MANET Border Router Discovery and Engagement
 
@@ -946,14 +993,6 @@ Internet-Draft            MANET Internetworking                July 2026
 
 7.5.  DLEP-based MANET deployments with gatewaying
 
-
-
-
-Templin & Jakubisin      Expires 28 January 2027               [Page 17]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
 7.6.  Conventional tunneling / prefix delegation approaches
 
 8.  IANA Considerations
@@ -961,6 +1000,15 @@ Internet-Draft            MANET Internetworking                July 2026
    This document is an informational problem statement and does not in
    itself request any IANA actions.  IANA considerations can be found in
    solution space documents.
+
+
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 18]
+
+Internet-Draft            MANET Internetworking                July 2026
+
 
 9.  Security Considerations
 
@@ -1001,15 +1049,6 @@ Internet-Draft            MANET Internetworking                July 2026
               DOI 10.17487/RFC2501, January 1999,
               <https://www.rfc-editor.org/info/rfc2501>.
 
-
-
-
-
-Templin & Jakubisin      Expires 28 January 2027               [Page 18]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    [RFC4861]  Narten, T., Nordmark, E., Simpson, W., and H. Soliman,
               "Neighbor Discovery for IP version 6 (IPv6)", RFC 4861,
               DOI 10.17487/RFC4861, September 2007,
@@ -1019,6 +1058,13 @@ Internet-Draft            MANET Internetworking                July 2026
               Address Autoconfiguration", RFC 4862,
               DOI 10.17487/RFC4862, September 2007,
               <https://www.rfc-editor.org/info/rfc4862>.
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 19]
+
+Internet-Draft            MANET Internetworking                July 2026
+
 
    [RFC5889]  Baccelli, E., Ed. and M. Townsley, Ed., "IP Addressing
               Model in Ad Hoc Networks", RFC 5889, DOI 10.17487/RFC5889,
@@ -1058,14 +1104,6 @@ Internet-Draft            MANET Internetworking                July 2026
               ID (UAS RID)", RFC 9374, DOI 10.17487/RFC9374, March 2023,
               <https://www.rfc-editor.org/info/rfc9374>.
 
-
-
-
-Templin & Jakubisin      Expires 28 January 2027               [Page 19]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    [STATISTA] Statista, S., "Number of connected devices worldwide as of
               October 2025, by device,
               https://www.statista.com/statistics/1559435/connected-
@@ -1074,6 +1112,15 @@ Internet-Draft            MANET Internetworking                July 2026
    [WIKI]     Wikipedia, W., "World population milestones,
               https://en.wikipedia.org/wiki/
               World_population_milestones", March 2026.
+
+
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 20]
+
+Internet-Draft            MANET Internetworking                July 2026
+
 
 Appendix A.  Change Log
 
@@ -1117,4 +1164,13 @@ Authors' Addresses
 
 
 
-Templin & Jakubisin      Expires 28 January 2027               [Page 20]
+
+
+
+
+
+
+
+
+
+Templin & Jakubisin      Expires 29 January 2027               [Page 21]
