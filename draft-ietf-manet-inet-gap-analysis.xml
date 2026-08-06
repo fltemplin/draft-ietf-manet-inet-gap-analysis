@@ -938,8 +938,8 @@ ipr="trust200902" updates="">
       concepts exposed in this document. The following are acknowledged
       for their helpful comments: Abdussalam Baryun, Lou Berger, Stuart
       Card, Juliusz Chroboczek, Christopher Dearlove, Donald Eastlake,
-      Joel Halpern and others who provided valuable input on the list
-      or through private discussions.</t>
+      Joel Halpern, Henning Rogge and others who provided valuable
+      input.</t>
     </section>
   </middle>
 
@@ -1016,7 +1016,15 @@ ipr="trust200902" updates="">
     <section title="Change Log">
       <t>&lt;&lt; RFC Editor - remove prior to publication &gt;&gt;</t>
 
-      <t>Differences from -03 to -04:<list style="symbols">
+       <t>Differences from -04 to -05:<list style="symbols">
+        <t>Resolutions for some IETF126 comments.</t>
+
+        <t>Introduced partitions and merges as #1 problem.</t>
+
+        <t>Cited several important RFCs.</t>
+      </list></t>
+
+      <t>Differences from -02 to -04:<list style="symbols">
         <t>Introduced distinction between L2/L3 MANETs.</t>
 
         <t>Supporting text added in response to list discussions.</t>

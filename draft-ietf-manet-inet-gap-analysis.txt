@@ -5,12 +5,12 @@
 Network Working Group                                 F. L. Templin, Ed.
 Internet-Draft                                        The Boeing Company
 Intended status: Informational                           D. J. Jakubisin
-Expires: 31 January 2027      National Security Institute, Virginia Tech
-                                                            30 July 2026
+Expires: 4 February 2027      National Security Institute, Virginia Tech
+                                                           3 August 2026
 
 
        MANET Internetworking: Problem Statement and Gap Analysis
-                 draft-ietf-manet-inet-gap-analysis-04
+                 draft-ietf-manet-inet-gap-analysis-05
 
 Abstract
 
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 31 January 2027.
+   This Internet-Draft will expire on 4 February 2027.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Templin & Jakubisin      Expires 31 January 2027                [Page 1]
+Templin & Jakubisin      Expires 4 February 2027                [Page 1]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
 
 Table of Contents
@@ -65,21 +65,22 @@ Table of Contents
    3.  MANET Use Cases . . . . . . . . . . . . . . . . . . . . . . .   8
    4.  MANET Architectural Layering  . . . . . . . . . . . . . . . .   9
    5.  MANET Internetworking Problem Statement . . . . . . . . . . .  10
-     5.1.  Problem 1: Multilink Local Addressing . . . . . . . . . .  10
-     5.2.  Problem 2: Autoconfiguration  . . . . . . . . . . . . . .  12
-     5.3.  Problem 3: MANET-local Communications . . . . . . . . . .  13
-     5.4.  Problem 4: MANET Peer to Internetwork Correspondent . . .  14
-     5.5.  Problem 5: Internetwork Correspondent to MANET Peer . . .  15
-     5.6.  Problem 6: Peer-to-Peer Between Different MANETs  . . . .  15
-     5.7.  Problem 7: Stub MANET to Not-so-stubby MANET
-           Connections . . . . . . . . . . . . . . . . . . . . . . .  16
-   6.  MANET Internetworking Gap Analysis  . . . . . . . . . . . . .  16
+     5.1.  Problem 1: Partitions and Merges  . . . . . . . . . . . .  10
+     5.2.  Problem 2: Multilink Local Addressing . . . . . . . . . .  11
+     5.3.  Problem 3: Autoconfiguration  . . . . . . . . . . . . . .  13
+     5.4.  Problem 4: MANET-local Communications . . . . . . . . . .  14
+     5.5.  Problem 5: MANET Peer to Internetwork Correspondent . . .  15
+     5.6.  Problem 6: Internetwork Correspondent to MANET Peer . . .  16
+     5.7.  Problem 7: Peer-to-Peer Between Different MANETs  . . . .  16
+     5.8.  Problem 8: Stub MANET to Not-so-stubby MANET
+           Connections . . . . . . . . . . . . . . . . . . . . . . .  17
+   6.  MANET Internetworking Gap Analysis  . . . . . . . . . . . . .  17
      6.1.  Gap 1: Multiple Heterogeneous MANET Interfaces  . . . . .  17
-     6.2.  Gap 2: Maximum Packet Size Diversity  . . . . . . . . . .  17
-     6.3.  Gap 3: Header Compression . . . . . . . . . . . . . . . .  17
-     6.4.  Gap 4: MANET Border Router Discovery and Engagement . . .  18
-     6.5.  Gap 5: MANET Internetworking Security . . . . . . . . . .  18
-   7.  MANET Internetworking Solution Proposal Analysis  . . . . . .  18
+     6.2.  Gap 2: Maximum Packet Size Diversity  . . . . . . . . . .  18
+     6.3.  Gap 3: Header Compression . . . . . . . . . . . . . . . .  18
+     6.4.  Gap 4: MANET Border Router Discovery and Engagement . . .  19
+     6.5.  Gap 5: MANET Internetworking Security . . . . . . . . . .  19
+   7.  MANET Internetworking Solution Proposal Analysis  . . . . . .  19
      7.1.  AERO/OMNI . . . . . . . . . . . . . . . . . . . . . . . .  19
      7.2.  NEMO (RFC3963)  . . . . . . . . . . . . . . . . . . . . .  19
      7.3.  LISP-based mobility and overlays  . . . . . . . . . . . .  19
@@ -87,34 +88,34 @@ Table of Contents
      7.5.  DLEP-based MANET deployments with gatewaying  . . . . . .  19
      7.6.  Conventional tunneling / prefix delegation approaches . .  19
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  19
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  19
-   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
-   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
-     11.1.  Normative References . . . . . . . . . . . . . . . . . .  19
+   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  20
+   10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  20
+   11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
+     11.1.  Normative References . . . . . . . . . . . . . . . . . .  20
      11.2.  Informative References . . . . . . . . . . . . . . . . .  20
-   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  21
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  21
+   Appendix A.  Change Log . . . . . . . . . . . . . . . . . . . . .  22
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  23
 
 1.  Introduction
 
    Mobile Ad-hoc Networks (MANETs) [RFC2501] often include mobile nodes
    with limited range wireless transmission media interfaces that
    establish links via a dynamically changing set of neighbors within
-   operational range.  Each mobile node engages a MANET routing protocol
-   to discover links to first hop neighbors as well as multihop paths to
-   reach other nodes beyond.  MANET routers represent multihop paths as
-   "host routes" established through either proactive or on-demand
-   discovery.  These host routes name singleton destinations based on
-   either L2 addressing and forwarding in the case of L2-MANET or IP
+   operational range.  MANET nodes that act as routers engage a MANET
+   routing protocol (e.g., OSPF-MDR [RFC5614], OLSRv2 [RFC7181], Babel
+   [RFC8966], etc.) to discover links to first hop neighbors as well as
+   multihop paths to reach other nodes beyond.  MANET routers represent
+   multihop paths as "host routes" that name singleton destinations
 
 
 
-Templin & Jakubisin      Expires 31 January 2027                [Page 2]
+Templin & Jakubisin      Expires 4 February 2027                [Page 2]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
 
-   addressing and forwarding [RFC0791] [RFC8200] in the case of
+   based on either L2 addressing and forwarding in the case of L2-MANET
+   or IP addressing and forwarding [RFC0791][RFC8200] in the case of
    L3-MANET.
 
    Individual MANETs typically include modest numbers of mobile nodes
@@ -122,7 +123,7 @@ Internet-Draft            MANET Internetworking                July 2026
    host routes needed in the local routing system.  MANETs can merge to
    form larger MANETs and/or partition into smaller MANETs according to
    dynamic network conditions such as mobility.  MANETs may also have
-   internal clusters with IP addressed cluster heads that limit the
+   internal clusters with IP-addressed cluster heads that limit the
    extent over which host routes propagate to reduce control message
    overhead.  Finally, MANETs often operate autonomously until they
    encounter Internetwork access points of opportunity.
@@ -130,16 +131,18 @@ Internet-Draft            MANET Internetworking                July 2026
    A MANET should be regarded as a mobile network that is either
    disconnected from the global Internetwork or only intermittently
    connected to the global Internetwork with the ability to move rapidly
-   between different Internetwork attachment points.  Due to the dynamic
-   multilink nature of MANETs, MANET routers must configure a unique
-   Multilink Local Address (MLA) and often also use prefix delegation to
-   obtain a unique Mobile Network Prefix (MNP) to connect nodes on their
-   downstream-attached interfaces.
+   between different Internetwork attachment points.  MANETs can also
+   dynamically partition into multiple smaller MANETs or merge to form
+   larger MANETs.  Due to the dynamic multilink nature of MANETs, MANET
+   routers must configure a unique Multilink Local Address (MLA) and
+   often also use prefix delegation to obtain a unique Mobile Network
+   Prefix (MNP) according to the prefix per client model [RFC9663] to
+   connect nodes on their downstream-attached interfaces.
 
    Data communications between two nodes within the same MANET local
    routing region follow host routes using MANET-internal links.  When a
    MANET border router establishes an Internetwork link, it can provide
-   "Internet connection-sharing" access to the rest of the MANET as a
+   "Internet connection-sharing" access to client MANET routers as a
    connected "stub" network.  Per [RFC2501], "stub networks carry
    traffic originating at and/or destined for internal nodes, but do not
    permit exogenous traffic to "transit" through the stub network".
@@ -156,23 +159,17 @@ Internet-Draft            MANET Internetworking                July 2026
    so-stubby V2V multihop forwarding paths.  MANET Internetworking must
    therefore be capable of accommodating all such scenarios.
 
-
-
-
-
-
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027                [Page 3]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    A widely-accepted axiom at the time of this writing suggests that
    there are more cellphones than people on the planet [STATISTA].
    According to Wikipedia, the world population reached 8 billion in
+
+
+
+Templin & Jakubisin      Expires 4 February 2027                [Page 3]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
    2022 and is expected to reach 10 billion by 2056 [WIKI].  Each mobile
    node that connects to the global public Internet can in some sense be
    regarded as a singleton "MANET" with the potential to connect still
@@ -181,23 +178,26 @@ Internet-Draft            MANET Internetworking                July 2026
    A common concern cited for regarding a cellphone as a MANET router is
    battery consumption, but this not an issue when the cellphone is
    connected to a power source such as when used inside of a vehicle.
-   Even in dismounted scenarios, however, having a (limited-duration)
-   multi-hop communications capability may be deemed worthwhile and
-   could provide a safety-of-life capability such as for emergency
-   response, disaster relief, search and rescue, etc.  Mapping services,
-   streaming video and many other applications drain cellphone
-   batteries, but people use them all the time.  An endless variety of
-   cellphone apps already exists, with many more released every day.
-   For these reasons, it is expected that MANET apps for cellphones will
-   eventually emerge and proliferate.
+   Even in dismounted scenarios, however, a (limited-duration) multi-hop
+   communications capability could provide vital services such as for
+   emergency response, disaster relief, search and rescue, etc.  Mapping
+   services, streaming video and many other applications drain cellphone
+   batteries but an endless variety of cellphone apps already exists
+   with many more released every day.  Moreover, until recently very few
+   people imagined that a cellphone could be made to act as a Wi-Fi
+   access point but in modern times that service has become both robust
+   and ubiquitous proving that cellphones can be adapted for complex
+   communication services.  For these reasons, MANET apps for cellphones
+   are expected to eventually emerge and proliferate.
 
-   With such a large population of candidate nodes, MANET
-   Internetworking therefore regards the global Internet as a "network
-   of (mobile ad-hoc) networks" with unrestricted dynamic relationships
-   between distinct MANET local routing regions joined by a Non-
-   Broadcast Multiple Access (NBMA) virtual overlay link manifested
-   through encapsulation.  Figure 1 illustrates an example of 2 distinct
-   MANET local routing regions connected via the NBMA overlay using the
+   With such a large population of candidate nodes (in addition to any
+   other non-cellphone node types), MANET Internetworking therefore
+   regards the global Internet as a "network of (mobile ad-hoc)
+   networks" with unlimited dynamic peering relationships between
+   distinct MANET local routing regions joined by a Non-Broadcast
+   Multiple Access (NBMA) virtual overlay link manifested through
+   encapsulation.  Figure 1 illustrates an example of 2 distinct MANET
+   local routing regions connected via the NBMA overlay using the
    Internet as transit:
 
 
@@ -221,52 +221,53 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 31 January 2027                [Page 4]
+Templin & Jakubisin      Expires 4 February 2027                [Page 4]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
 
    mobile wireless devices is certain, MANET Internetworking must
-   therefore accommodate populations on the order of O(10**10) or more.
+   therefore accommodate populations as large as O(10**10) or more.
    This includes address duplication avoidance through operational
    assurance since statistical properties alone may be insufficient to
-   avoid duplication in such large populations.
+   avoid duplication in such large populations.  The virtual link itself
+   constitutes an Internetworking limited domain [RFC8799].
 
    Since each MANET itself is mobile, its border routers may
    continuously encounter different Internetwork access points as they
    roam while potentially configuring a different IP address at each
-   access point.  MANET border routers therefore must not continuously
+   access point.  The MANET may also be subject to frequent partitions
+   and merges causing rapid changes in border router to client
+   associations.  MANET border routers therefore must not continuously
    inject and withdraw mobile network prefixes into the Internetwork BGP
    routing system as they move since this would result in unacceptable
    churn.  MANET routers instead maintain stable addresses in a Mobility
    Service Provider (MSP) overlay over the Internetwork such that the
-   overlay addresses remain stable even if the border router's underlay
-   address changes frequently.
+   overlay addresses remain stable even if a border router's
+   Internetwork connections change frequently.
 
    The overlay network BGP routing system must similarly be protected
-   from mobility churn by maintaining address to mobility anchor point
-   mappings in a scalable directory service such as the domain name
-   system (DNS).  Efficient path traversal across the overlay must be
-   supported through traffic flow diversity per [RFC6437][RFC6438] with
-   differentiated services applied within each flow.  This is especially
-   important for the common case of multilink MANET nodes (such as
-   cellphones with both 5G and Wi-Fi interfaces) where overlay flow
-   bindings are necessary for multilink coordination.
+   from mobility churn by maintaining address to Mobility Anchor Point
+   (MAP) mappings in a scalable directory service such as the domain
+   name system (DNS).  Efficient path traversal across the overlay must
+   be supported through traffic flow diversity per [RFC6437][RFC6438]
+   with differentiated services applied within each flow.  This is
+   especially important for the common case of multilink MANET nodes
+   (such as cellphones with both 5G and Wi-Fi interfaces) where overlay
+   flow bindings are necessary for multilink coordination.
 
    BGP scaling in the modern Internet backbone accommodates O(10**6)
    prefixes that rarely change.  Frequent advertisement and withdrawal
    of MLAs/MNPs can cause BGP churn resulting in instability in the
    global routing system such that BGP alone is not well suited to
    supporting mobile Internetworking by itself.  With an overlay, the
-   BGP routing service only needs to cover the addresses of Mobility
-   Anchor Points (MAPs) which are stable nodes not subject to mobility.
-   Within the overlay, the MAPs keep track of MLA/MNP to MAP
-   associations which may change dynamically.  This is accommodated
-   through a combination of a hierarchical overlay BGP arrangement of
-   the MAPs in combination with dynamic updates to the (reverse) DNS
-   resource records that associate MLAs/MNPs with MAPs.  Finally, the
-   architecture is not limited to only one gigantic global overlay;
-   there could be many smaller overlays operated by MSPs.
+   BGP routing service only needs to cover the addresses of MAPs which
+   are stable nodes not subject to mobility dynamics.  Within the
+   overlay, the MAPs keep track of MLA/MNP to MAP associations which may
+   change dynamically.  This is accommodated through a combination of a
+   hierarchical overlay BGP arrangement of the MAPs in combination with
+   dynamic updates to the (reverse) DNS resource records that associate
+   MLAs/MNPs with MAPs.
 
    "IPv6 Wireless Access in Vehicular Environments (IPWAVE): Problem
    Statement and Use Cases" [RFC9365] provides a complimentary analysis
@@ -276,10 +277,9 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-
-Templin & Jakubisin      Expires 31 January 2027                [Page 5]
+Templin & Jakubisin      Expires 4 February 2027                [Page 5]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
 
 2.  Terminology
@@ -333,9 +333,9 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 31 January 2027                [Page 6]
+Templin & Jakubisin      Expires 4 February 2027                [Page 6]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
 
    MANET Interface
@@ -389,9 +389,9 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 31 January 2027                [Page 7]
+Templin & Jakubisin      Expires 4 February 2027                [Page 7]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
 
 3.  MANET Use Cases
@@ -445,9 +445,9 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-Templin & Jakubisin      Expires 31 January 2027                [Page 8]
+Templin & Jakubisin      Expires 4 February 2027                [Page 8]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
 
       regions and to propagation host routes over them as new
@@ -475,9 +475,9 @@ Internet-Draft            MANET Internetworking                July 2026
    multi-hop paths.  IP multicast transmissions only reach single-hop
    neighbors which must engage an IP layer service such as Simplified
    Multicast Forwarding (SMF) [RFC6621] to flood multicast messages to
-   all MANET nodes.  IP header compression state must be maintained at
-   each MANET forwarding hop and may become invalidated due to path
-   changes.
+   all MANET nodes.  Hop-by-hop IP state (e.g., for header compression,
+   flow bindings, etc.) must be maintained at each MANET forwarding hop
+   and may become invalidated due to path changes.
 
    In L2-MANET, routing and addressing occurs at the MAC layer and the
    IP TTL/Hop-Limit is not decremented.  Both IP address and MAC address
@@ -486,25 +486,32 @@ Internet-Draft            MANET Internetworking                July 2026
    appearing as single-hop IP neighbors even though some may be
    separated by multiple L2 hops.  IP multicast transmissions are
    propagated to all MANET nodes even though the L2 service may be
-   required to forward at the layer below IP.  IP header compression
-   state is only maintained at the MANET ingress and egress nodes and is
+   required to forward at the layer below IP.  Hop-by-hop IP state is
+   only maintained at the MANET ingress and egress nodes and is
    therefore not invalidated due to interior MANET path changes.
    Instead, the L2 header must carry additional overhead (including a
    TTL, packet identification and ancillary addresses) to support
    forwarding at a layer below IP.
 
-   Since L3-MANETs propagate IP host routes, multicast-based address
-   resolution services are unnecessary thereby reducing dependence on
-   MANET multicast.  By default, L2-MANETs require multicast-based
-   address resolution services which can be minimized through proactive
-   distribution of address resolution information.
 
 
 
-Templin & Jakubisin      Expires 31 January 2027                [Page 9]
+
+
+
+
+
+Templin & Jakubisin      Expires 4 February 2027                [Page 9]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
+
+   Since L3-MANETs propagate IP host routes, multicast-based address
+   resolution services can often be satisfied by node-local information
+   thereby reducing dependence on MANET multicast.  By default,
+   L2-MANETs require multicast-based address resolution services which
+   can be minimized through proactive distribution of address resolution
+   information.
 
    In both the L2- and L3-MANET models, MANETs can partition into
    smaller separate MANETs or merge to form larger MANETs.  This
@@ -514,9 +521,10 @@ Internet-Draft            MANET Internetworking                July 2026
    should therefore only configure the MLA and MSP prefixes as on-link
    prefixes on an overlay interface.  This causes the node to invoke
    address resolution for both MANET-local nodes and target peers in
-   other networks reached via the overlay.  MANET Internetworking
-   concepts apply equally to both the L3-MANET and L2-MANET models as
-   discussed throughout the document.
+   other networks reached via the overlay while avoiding multilink
+   subnet issues [RFC4903] since the overlay appears as a connected NBMA
+   link.  MANET Internetworking concepts apply equally to both the
+   L3-MANET and L2-MANET models as discussed throughout the document.
 
 5.  MANET Internetworking Problem Statement
 
@@ -526,7 +534,44 @@ Internet-Draft            MANET Internetworking                July 2026
    not (fully) satisfied by existing services that must be addressed by
    any solution proposals.
 
-5.1.  Problem 1: Multilink Local Addressing
+5.1.  Problem 1: Partitions and Merges
+
+   Unlike traditional fixed networks, MANETs are often mobile and
+   subject to frequent partitions and merges as nodes move with relation
+   both to one another and to Internetwork access points of opportunity.
+   A unified MANET that initially connects to Internetwork access point
+   A can at the next moment split into multiple partitions connecting to
+   Internetwork access points B, C, D etc. with each partition appearing
+   as its own separate multi-access link.  Additionally, these
+   partitions may in the future merge with each other and/or with
+   partitions of other (original) MANETs in ways that do no correspond
+   uniformly to logical IP subnet boundaries.
+
+   This means that the MANET cannot simply represent itself as an
+   aggregated logical IP subnet prefix at each Internetwork access point
+   since all nodes covered by the prefix may not necessarily reside
+   within the same partition.  This condition is often termed "multilink
+   subnet" [RFC4903].
+
+
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 10]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
+   Additionally, since each partition can transition quickly from a
+   first Internetwork access point connection to a diversity of
+   subsequent Internetwork connections it is essential that the MANET
+   border routers refrain from constantly injecting and withdrawing
+   mobile IP prefixes into the Internetwork routing system.  MANET nodes
+   should instead obtain individual MNPs from an overlay network MAP
+   proxy/server which in turn maintains the MNPs within a scalable
+   overlay routing system.
+
+5.2.  Problem 2: Multilink Local Addressing
 
    MANET Internetworking observes the IP addressing model in ad hoc
    networks [RFC5889].  Each MANET router requires a unique IP address
@@ -554,14 +599,6 @@ Internet-Draft            MANET Internetworking                July 2026
    other MANETs where a duplicate address may be encountered resulting
    in unpredictable behavior and/or communication failures.
 
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 10]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    Although the node population for each MANET local routing region is
    likely to be modest, the total population of MANET routers that may
    join the MANET Internetworking overlay may be on the order of the
@@ -573,6 +610,13 @@ Internet-Draft            MANET Internetworking                July 2026
    [RFC9374].  With such a high likelihood of duplication in the
    worldwide population, unresolvable collisions could disrupt
    communications.
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 11]
+
+Internet-Draft            MANET Internetworking              August 2026
+
 
    When MANET Internetworking is applied to connect routers in different
    not-so-stubby MANETs, independent local routing regions are
@@ -593,30 +637,20 @@ Internet-Draft            MANET Internetworking                July 2026
    for global uniqueness even if they first self-generate the MLAs
    (e.g., based on a secure hash of a public key) before enrolling them
    in a registration service.  The node assigns its MLA to an overlay
-   multilink network interface or another virtual interface such as a
-   loopback.  Routers in all MANETs also configure unique router IDs
-   that may be derived from the MLA or randomly generated with
-   sufficient statistical uniqueness properties within the local region.
+   multilink network interface attachment to the overlay NBMA link.
+   Routers in all MANETs also configure unique router IDs that may be
+   derived from the MLA or randomly generated with sufficient
+   statistical uniqueness properties within the local region.
 
    In addition to MLAs, L2-MANET routers must also configure L2 MAC
    addresses on their MANET interfaces that are assured unique at least
-   within the MANET local routing region.  MAC addresses can be
-   configured either through random generation with universal/local (U/
-   L) bit set to "local" or administratively assigned according to an
-   organizationally unique identifier (OUI) with U/L set to "universal".
-   If multiple routers within the same MANET local routing region
-   somehow configure the same MAC address they must detect and
-   deconflict the duplication to ensure routing system integrity.
-
-
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 11]
-
-Internet-Draft            MANET Internetworking                July 2026
-
+   within the MANET local routing region.  MAC addresses can be either
+   administratively assigned according to an organizationally unique
+   identifier (OUI) with U/L set to "universal" or configured through
+   random generation with universal/local (U/L) bit set to "local".  If
+   multiple routers within the same MANET local routing region somehow
+   configure the same MAC address they must detect and deconflict the
+   duplication to ensure routing system integrity.
 
    In addition to MLAs, an important use case for IPv6 Link-Local
    Addresses (LLAs) remains.  MANET routers assign LLAs to their MANET
@@ -632,7 +666,15 @@ Internet-Draft            MANET Internetworking                July 2026
    would simply be deconflicted by the IP layers of the multiple next
    hop routers.
 
-5.2.  Problem 2: Autoconfiguration
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 12]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
+5.3.  Problem 3: Autoconfiguration
 
    When a MANET comes in contact with a fixed Internetwork such as the
    global public Internet, nodes in the MANET that engage global mobile
@@ -666,14 +708,6 @@ Internet-Draft            MANET Internetworking                July 2026
    Aggregated (PA) IP address or prefix.  The Internetwork element then
    returns the delegated IP address/prefix in a reply that traverses the
    reverse path to the original requesting node.  Each MANET router then
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 12]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    configures a route to this IP address/prefix within the MANET local
    routing protocol, i.e., the MANET local routing protocol becomes
    aware of the delegation.
@@ -682,14 +716,22 @@ Internet-Draft            MANET Internetworking                July 2026
    a (virtual) overlay multilink network interface over its (physical)
    MANET interface(s) and issues standard link-scoped IPv6ND and/or
    DHCPv6 requests over the virtual interface.  The virtual interface
-   applies encapsulation to provide the appearance of a single NBMA link
-   spanning the entire (multilink) MANET.  This virtual link supports
-   standard link-scoped autoconfiguration services coordinated with an
-   Internetwork element capable of delegating an address.  For stub
-   MANETs, the MANET border router itself delegates a public or private
-   IP address.  For not-so-stubby MANETs, an overlay Internetwork
-   Mobility Anchor Point (MAP) delegates a MNP as an IP prefix
-   maintained by the overlay independently of the Internetwork
+   applies encapsulation to provide the appearance of a connected NBMA
+   link spanning the entire (multilink) MANET.  This virtual link
+   supports standard link-scoped autoconfiguration services coordinated
+   with an Internetwork element capable of delegating an address.  For
+   stub MANETs, the MANET border router itself delegates a public or
+   private IP address.  For not-so-stubby MANETs, an overlay
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 13]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
+   Internetwork Mobility Anchor Point (MAP) delegates a MNP as an IP
+   prefix maintained by the overlay independently of the Internetwork
    attachment point.  The MAP then returns the delegated IP prefix in a
    link-scoped reply over the virtual interface that traverses the
    reverse path to the original requesting node.
@@ -705,7 +747,7 @@ Internet-Draft            MANET Internetworking                July 2026
    while using the MANET border router as a transit intermediate system
    according to the not-so-stubby model.
 
-5.3.  Problem 3: MANET-local Communications
+5.4.  Problem 4: MANET-local Communications
 
    Two nodes located within the same MANET local routing region should
    be able to communicate (across multiple hops if necessary) using MLA
@@ -720,16 +762,6 @@ Internet-Draft            MANET Internetworking                July 2026
    encapsulation and header compression via an overlay virtual link
    spanning any MANET intermediate hops in the path.
 
-
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 13]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    Header compression represents a fundamental requirement for
    maximizing MANET-local communications efficiency, since the size of
    the compressed encapsulation and upper layer protocol headers is
@@ -737,6 +769,22 @@ Internet-Draft            MANET Internetworking                July 2026
    headers when no encapsulation is applied.  However, header
    compression state must be synchronized between the endpoints of each
    IP hop.
+
+
+
+
+
+
+
+
+
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 14]
+
+Internet-Draft            MANET Internetworking              August 2026
+
 
    For L2-MANET, this means that only the MANET ingress and egress nodes
    (as well as any intermediate cluster heads) need to synchronize IP
@@ -754,12 +802,12 @@ Internet-Draft            MANET Internetworking                July 2026
    it is not possible for a MANET to maintain a classic global IP shared
    subnet where all nodes are presumed to be connected to the same
    (shared )IP link.  The only shared IP subnet that should appear on
-   the link is the MLA prefix, since the overlay ensures reachability
-   for MLA addressed nodes whether they are located in the local MANET
-   or in a different MANET reached via a border router connected to the
-   overlay.
+   the overlay virtual link is the MLA prefix, since the overlay ensures
+   reachability for MLA addressed nodes whether they are located in the
+   local MANET or in a different MANET reached via a border router
+   connected to the overlay.
 
-5.4.  Problem 4: MANET Peer to Internetwork Correspondent
+5.5.  Problem 5: MANET Peer to Internetwork Correspondent
 
    When an originating peer (or its stub MANET border router) within a
    not-so-stubby MANET needs to communicate with correspondents
@@ -771,20 +819,12 @@ Internet-Draft            MANET Internetworking                July 2026
    destination addresses for packet exchanges.
 
    To initiate communications with an Internetwork correspondent, the
-   MANET peer first establishes per-flow on-demand virtual circuits in
-   the overlay to an Internetwork relay beyond the MANET border.  MANET
-   local multihop routing will then convey the peer's original packets
-   to the MANET border which then forwards them via the overlay to an
-   Internetwork relay which directs the packets to the correspondent
-   node.
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 14]
-
-Internet-Draft            MANET Internetworking                July 2026
-
+   MANET peer first establishes per-flow on-demand virtual circuit state
+   in the overlay to an Internetwork relay beyond the MANET border.
+   MANET local multihop routing will then convey the peer's original
+   packets to the MANET border which then forwards them via the overlay
+   to an Internetwork relay which directs the packets to the
+   correspondent node.
 
    In the reverse path, the correspondent uses the MNP-based IP address
    of the peer obtained from the source address of initiating packets as
@@ -795,11 +835,18 @@ Internet-Draft            MANET Internetworking                July 2026
    the packets over one or more MANET local hops until they ultimately
    reach the peer.
 
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 15]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
    In this case, the originating peer's IP address need not appear in
    the global DNS since the correspondent discovers the address by
    examining the source of received packets.
 
-5.5.  Problem 5: Internetwork Correspondent to MANET Peer
+5.6.  Problem 6: Internetwork Correspondent to MANET Peer
 
    When an Internetwork correspondent needs to communicate with a target
    peer within a MANET local routing region, the correspondent consults
@@ -820,7 +867,7 @@ Internet-Draft            MANET Internetworking                July 2026
    minor temporary disruptions, transport protocol retransmissions will
    maintain continuity for any ongoing sessions.
 
-5.6.  Problem 6: Peer-to-Peer Between Different MANETs
+5.7.  Problem 7: Peer-to-Peer Between Different MANETs
 
    When two prospective peer nodes are located in different MANET local
    routing regions separated by one or more transit Internetwork
@@ -835,13 +882,6 @@ Internet-Draft            MANET Internetworking                July 2026
    in an interdomain global routing service bridging many MANET local
    routing regions.
 
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 15]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    A certain degree of coordination between peer nodes and their MAPs is
    then required to maintain address mappings.  The overlay ensures that
    each peer remains reachable at its stable IP address/prefix through
@@ -850,11 +890,19 @@ Internet-Draft            MANET Internetworking                July 2026
    Note that a common use case includes joining multiple partitions of a
    formerly unified MANET local routing region.  The partitions may
    arise from pre-planned or un-planned node mobility patterns, but as
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 16]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
    long as each partition includes a MANET border router with an
    Internetwork connection nodes within different partitions can
    continue to communicate using their MLAs.
 
-5.7.  Problem 7: Stub MANET to Not-so-stubby MANET Connections
+5.8.  Problem 8: Stub MANET to Not-so-stubby MANET Connections
 
    When a MANET border router connects a stub MANET to an Internetwork,
    it can either delegate global-scoped IP addresses to stub MANET
@@ -885,19 +933,6 @@ Internet-Draft            MANET Internetworking                July 2026
    functional gaps that do not fully satisfy the requirements.  The
    following gaps must be addressed by candidate solutions:
 
-
-
-
-
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 16]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
 6.1.  Gap 1: Multiple Heterogeneous MANET Interfaces
 
    In anticipated practices, nodes will often have multiple and
@@ -911,6 +946,14 @@ Internet-Draft            MANET Internetworking                July 2026
    interfaces engaged in "SideLink" mode, nodes within a MANET local
    routing region can exchange control information and forward packets
    across multiple hops if necessary even if some hops are carried over
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 17]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
    Wi-Fi and others over 5G SideLink.  A unique addressing scheme is
    also necessary across the heterogeneous combined MANET region to
    maintain consistent and compatible routing information.  Most
@@ -944,16 +987,6 @@ Internet-Draft            MANET Internetworking                July 2026
    carrying significant header payloads can waste precious wireless
    transmission bandwidth.
 
-
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 17]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
    L2- and L3-MANET solutions have different approaches to header
    compression that may be better suited for some operational scenarios
    than others.  L2-MANET includes larger L2 headers with every packet
@@ -963,6 +996,19 @@ Internet-Draft            MANET Internetworking                July 2026
    in MANET intermediate nodes.  Any solution proposal must therefore
    address the need for header compression for multi-hop packet flows
    within the context of intended use cases.
+
+
+
+
+
+
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 18]
+
+Internet-Draft            MANET Internetworking              August 2026
+
 
 6.4.  Gap 4: MANET Border Router Discovery and Engagement
 
@@ -993,23 +1039,6 @@ Internet-Draft            MANET Internetworking                July 2026
    showing how it either does or does not satisfy the technological
    gaps.
 
-
-
-
-
-
-
-
-
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 18]
-
-Internet-Draft            MANET Internetworking                July 2026
-
-
 7.1.  AERO/OMNI
 
 7.2.  NEMO (RFC3963)
@@ -1028,6 +1057,15 @@ Internet-Draft            MANET Internetworking                July 2026
    itself request any IANA actions.  IANA considerations can be found in
    solution space documents.
 
+
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 19]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
 9.  Security Considerations
 
    MANET Internetworking assumes a multi-layer security architecture.
@@ -1043,8 +1081,7 @@ Internet-Draft            MANET Internetworking                July 2026
    concepts exposed in this document.  The following are acknowledged
    for their helpful comments: Abdussalam Baryun, Lou Berger, Stuart
    Card, Juliusz Chroboczek, Christopher Dearlove, Donald Eastlake, Joel
-   Halpern and others who provided valuable input on the list or through
-   private discussions.
+   Halpern, Henning Rogge and others who provided valuable input.
 
 11.  References
 
@@ -1058,13 +1095,6 @@ Internet-Draft            MANET Internetworking                July 2026
               (IPv6) Specification", STD 86, RFC 8200,
               DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/info/rfc8200>.
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 19]
-
-Internet-Draft            MANET Internetworking                July 2026
-
 
 11.2.  Informative References
 
@@ -1083,6 +1113,23 @@ Internet-Draft            MANET Internetworking                July 2026
               Address Autoconfiguration", RFC 4862,
               DOI 10.17487/RFC4862, September 2007,
               <https://www.rfc-editor.org/info/rfc4862>.
+
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 20]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
+   [RFC4903]  Thaler, D., "Multi-Link Subnet Issues", RFC 4903,
+              DOI 10.17487/RFC4903, June 2007,
+              <https://www.rfc-editor.org/info/rfc4903>.
+
+   [RFC5614]  Ogier, R. and P. Spagnolo, "Mobile Ad Hoc Network (MANET)
+              Extension of OSPF Using Connected Dominating Set (CDS)
+              Flooding", RFC 5614, DOI 10.17487/RFC5614, August 2009,
+              <https://www.rfc-editor.org/info/rfc5614>.
 
    [RFC5889]  Baccelli, E., Ed. and M. Townsley, Ed., "IP Addressing
               Model in Ad Hoc Networks", RFC 5889, DOI 10.17487/RFC5889,
@@ -1106,21 +1153,34 @@ Internet-Draft            MANET Internetworking                July 2026
               DOI 10.17487/RFC6762, February 2013,
               <https://www.rfc-editor.org/info/rfc6762>.
 
+   [RFC7181]  Clausen, T., Dearlove, C., Jacquet, P., and U. Herberg,
+              "The Optimized Link State Routing Protocol Version 2",
+              RFC 7181, DOI 10.17487/RFC7181, April 2014,
+              <https://www.rfc-editor.org/info/rfc7181>.
+
    [RFC8415]  Mrugalski, T., Siodelski, M., Volz, B., Yourtchenko, A.,
               Richardson, M., Jiang, S., Lemon, T., and T. Winters,
               "Dynamic Host Configuration Protocol for IPv6 (DHCPv6)",
               RFC 8415, DOI 10.17487/RFC8415, November 2018,
               <https://www.rfc-editor.org/info/rfc8415>.
 
+   [RFC8799]  Carpenter, B. and B. Liu, "Limited Domains and Internet
+              Protocols", RFC 8799, DOI 10.17487/RFC8799, July 2020,
+              <https://www.rfc-editor.org/info/rfc8799>.
 
 
 
 
 
-Templin & Jakubisin      Expires 31 January 2027               [Page 20]
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 21]
 
-Internet-Draft            MANET Internetworking                July 2026
+Internet-Draft            MANET Internetworking              August 2026
 
+
+   [RFC8966]  Chroboczek, J. and D. Schinazi, "The Babel Routing
+              Protocol", RFC 8966, DOI 10.17487/RFC8966, January 2021,
+              <https://www.rfc-editor.org/info/rfc8966>.
 
    [RFC9365]  Jeong, J., Ed., "IPv6 Wireless Access in Vehicular
               Environments (IPWAVE): Problem Statement and Use Cases",
@@ -1131,6 +1191,12 @@ Internet-Draft            MANET Internetworking                July 2026
               "DRIP Entity Tag (DET) for Unmanned Aircraft System Remote
               ID (UAS RID)", RFC 9374, DOI 10.17487/RFC9374, March 2023,
               <https://www.rfc-editor.org/info/rfc9374>.
+
+   [RFC9663]  Colitti, L., Linkova, J., Ed., and X. Ma, Ed., "Using
+              DHCPv6 Prefix Delegation (DHCPv6-PD) to Allocate Unique
+              IPv6 Prefixes per Client in Large Broadcast Networks",
+              RFC 9663, DOI 10.17487/RFC9663, October 2024,
+              <https://www.rfc-editor.org/info/rfc9663>.
 
    [STATISTA] Statista, S., "Number of connected devices worldwide as of
               October 2025, by device,
@@ -1145,13 +1211,28 @@ Appendix A.  Change Log
 
    << RFC Editor - remove prior to publication >>
 
-   Differences from -03 to -04:
+   Differences from -04 to -05:
+
+   *  Resolutions for some IETF126 comments.
+
+   *  Introduced partitions and merges as #1 problem.
+
+   *  Cited several important RFCs.
+
+   Differences from -02 to -04:
 
    *  Introduced distinction between L2/L3 MANETs.
 
    *  Supporting text added in response to list discussions.
 
    Differences from -01 to -02:
+
+
+
+Templin & Jakubisin      Expires 4 February 2027               [Page 22]
+
+Internet-Draft            MANET Internetworking              August 2026
+
 
    *  Expanded gap analysis.
 
@@ -1165,18 +1246,6 @@ Appendix A.  Change Log
    *  First draft publication.
 
 Authors' Addresses
-
-
-
-
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 21]
-
-Internet-Draft            MANET Internetworking                July 2026
-
 
    Fred L. Templin (editor)
    The Boeing Company
@@ -1216,17 +1285,4 @@ Internet-Draft            MANET Internetworking                July 2026
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Templin & Jakubisin      Expires 31 January 2027               [Page 22]
+Templin & Jakubisin      Expires 4 February 2027               [Page 23]
