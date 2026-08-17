@@ -12,7 +12,7 @@
 <?rfc subcompact="no"?>
 <?rfc strict='yes'?>
 <?rfc iprnotified='no'?>
-<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-06"
+<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-07"
 ipr="trust200902" updates="">
   <front>
     <title abbrev="MANET Internetworking">MANET Internetworking: Problem Statement and Gap Analysis</title>
@@ -59,7 +59,7 @@ ipr="trust200902" updates="">
       </address>
     </author>
 
-    <date day="12" month="August" year="2026"/>
+    <date day="14" month="August" year="2026"/>
 
     <keyword>I-D</keyword>
 
@@ -85,10 +85,9 @@ ipr="trust200902" updates="">
       target="RFC8966"/>, etc.) to discover links to first hop neighbors
       as well as multihop paths to reach other nodes beyond. MANET
       routers represent multihop paths as "host routes" that name
-      singleton destinations based on either L2 addressing and
-      forwarding in the case of L2-MANET or IP addressing and
-      forwarding <xref target="RFC0791"/><xref target="RFC8200"/>
-      in the case of L3-MANET.</t>
+      singleton destinations, with IP addressing and forwarding
+      <xref target="RFC0791"/><xref target="RFC8200"/> engaged
+      in accordance with protocol layering (see: <xref target="layer"/>).</t>
 
       <t>Individual MANETs typically include modest numbers of mobile
       nodes (e.g., O(10**1), O(10**2), etc.) which naturally limits the
@@ -136,9 +135,10 @@ ipr="trust200902" updates="">
       that there are more cellphones than people on the planet <xref
       target="STATISTA"/>. According to Wikipedia, the world population
       reached 8 billion in 2022 and is expected to reach 10 billion by
-      2056 <xref target="WIKI"/>. Each mobile node that connects to the
-      global public Internet can in some sense be regarded as a singleton
-      "MANET" with the potential to connect still larger MANETs.</t>
+      2056 <xref target="WIKI"/>. With their multiple wireless access
+      technologies capable of supporting a device-to-device (D2D)
+      multihop forwarding service, all cellphones can be regarded
+      as potential MANET routers.</t>
 
       <t>A common concern cited for engaging a cellphone as a MANET
       router is battery consumption, but this not an issue when the
@@ -147,24 +147,24 @@ ipr="trust200902" updates="">
       multihop communications capability could provide vital services
       such as for emergency response, disaster relief, search and
       rescue, etc. Mapping and streaming video applications drain
-      cellphone batteries but everyone uses them all the time while
+      cellphone batteries but everyone uses them all the time, plus
       an endless variety of other power-hungry apps already exists
       with many more released every day. Moreover, at the dawning of
       the millennium few people imagined that a cellphone could be
       made to serve as a Wi-Fi access point but that capability has
       since become both robust and ubiquitous. These factors strongly
       suggest that cellphones will continue to adapt to support
-      advanced communication services including MANET routing.</t>
+      advanced communication services.</t>
 
-      <t>With such a large population of candidate nodes (in addition
-      to any other non-cellphone node types), MANET Internetworking
-      therefore regards the global Internet as a "network of (mobile
-      ad-hoc) networks" with unlimited dynamic peering relationships
-      between distinct MANET local routing regions joined by a
-      Non-Broadcast Multiple Access (NBMA) virtual overlay link
-      manifested through encapsulation. <xref target="manet-inet"/>
-      illustrates an example of 2 distinct MANET local routing regions
-      connected via the NBMA overlay using the Internet as transit:</t>
+      <t>With such a large population of potential MANET routers (to
+      also include non-cellphone node types), MANET Internetworking
+      therefore regards the global Internet as a "network of (mobile ad-hoc)
+      networks" with dynamic peering relationships between distinct MANET
+      local routing regions joined by a Non-Broadcast Multiple Access (NBMA)
+      overlay virtual link manifested through encapsulation. <xref target=
+      "manet-inet"/> illustrates an example of 2 distinct MANET local
+      routing regions connected via the NBMA overlay using the Internet
+      as transit:</t>
 
       <figure anchor="manet-inet" title="MANET Internetworking">
         <artwork><![CDATA[ 
@@ -183,23 +183,23 @@ ipr="trust200902" updates="">
       </figure>
 
       <t>While the figure depicts just 2 MANET local routing
-      regions, many others worldwide will also want to connect
-      to the virtual link. Since a sustained increase in both
-      the world population and number of mobile wireless devices
-      is certain, MANET Internetworking must therefore accommodate
-      populations as large as O(10**10) or more. This includes
+      regions, the NBMA virtual link extends to include any other
+      MANETs worldwide that want to connect. Since a sustained
+      increase in both the world population and number of mobile
+      wireless devices is certain, MANET Internetworking must
+      therefore scale to accommodate populations as large as
+      O(10**10) or more, i.e., even though there may be far
+      fewer active nodes at any moment in time. This includes
       address duplication avoidance through operational assurance
       since statistical properties alone may be insufficient to
-      avoid duplication in such large populations. The virtual
-      link itself constitutes an Internetworking limited domain
-      <xref target="RFC8799"/>.</t>
+      avoid duplication in such large populations.</t>
 
-      <t>Since each MANET itself is mobile, its border routers may
-      continuously encounter different Internetwork access points
-      as they roam while potentially configuring a different IP
+      <t>Since each MANET is a flexible mobile unit, its border
+      routers may continuously encounter different Internetwork access
+      points as they roam while potentially configuring a different IP
       address at each access point. The MANET may also be subject
-      to frequent partitions and merges causing rapid changes in
-      border router to client associations. MANET border routers
+      to frequent partitions and merges causing continuous changes
+      in border router to client associations. MANET border routers
       therefore must not continuously inject and withdraw mobile
       network prefixes into the Internetwork BGP routing system as
       they move since this would result in unacceptable churn. MANET
@@ -263,6 +263,10 @@ ipr="trust200902" updates="">
         example, as are private operator service networks either
         individually or in concatenations with other service networks.</t>
 
+        <t hangText="Internet Protocol (IP) Address"><vspace/>an
+        IPv4 <xref target="RFC0791"/> or IPv6 <xref target="RFC8200"/>
+        address assigned to an interface of the node.</t>
+
         <t hangText="Media Access Control (MAC) Address"><vspace/>an
         IEEE EUI-48 or EUI-64 address, or an L2 address format specific
         to another data link type.</t>
@@ -272,13 +276,10 @@ ipr="trust200902" updates="">
         with limited range wireless transmission media interfaces that
         establish links via a dynamically changing set of neighbors
         within operational range and engage in a MANET local routing
-        protocol. The MANET local routing protocol can be configured
-        to operate as either an L3 (IP-based) or L2 (MAC address-based)
-        service according to operational requirements. In both cases,
-        each MANET can dynamically merge with others to form larger
-        MANETs or partition into multiple smaller MANETs where even
-        a singleton MANET router with no neighbors is considered a
-        MANET unto itself. This may present a challenge to the
+        protocol. Each MANET can dynamically merge with others to form
+        larger MANETs or partition into multiple smaller MANETs where
+        even a singleton MANET router with no neighbors is considered
+        a MANET unto itself. This may present a challenge to the
         classical IP subnet model.</t>
 
         <t hangText="MANET Border Router"><vspace/>a MANET router that
@@ -296,11 +297,7 @@ ipr="trust200902" updates="">
 
         <t hangText="MANET Router"><vspace/>a node that runs a routing
         protocol over one or more MANET interfaces to establish multihop
-        forwarding paths within a local routing region. Forwarding nodes
-        in both L2- and L3-MANETs are considered "routers" even when
-        forwarding is based on MAC addresses. All MANET routers are
-        also considered MANET nodes, but not all MANET nodes
-        necessarily act as MANET routers.</t>
+        forwarding paths within a local routing region.</t>
 
         <t hangText="Mobility Anchor Point (MAP)"><vspace/>a
         Proxy/Server that also provides mobility, address/prefix
@@ -342,6 +339,12 @@ ipr="trust200902" updates="">
         <t hangText="Relay"><vspace/>a Proxy/Server that supports
         forwarding between Clients connected to the overlay and
         Internetwork correspondents.</t>
+
+        <t hangText="virtual link"><vspace/>a Non-Broadcast, Multiple
+        Access (NBMA) virtual overlay configured over one or more
+        Internetworks and their connected MANETs. The virtual link
+        itself constitutes an Internetworking limited domain
+        <xref target="RFC8799"/>.</t>
       </list></t>
     </section>
 
@@ -403,64 +406,6 @@ ipr="trust200902" updates="">
       </list></t>
     </section>
 
-    <section anchor="layer" title="MANET Architectural Layering">
-      <t>MANET routing for nodes operating in a common local routing
-      region can be configured to operate as either a layer-3
-      (L3-MANET) or layer-2 (L2-MANET) service.</t>
-
-      <t>In L3-MANET, routing and addressing occurs at the IP layer
-      and each MANET forwarding hop decrements the IP TTL/Hop-Limit.
-      IP address uniqueness assurance is essential to avoid conflicts,
-      while MAC address collisions may not pose significant operational
-      issues. The MANET interface observes a partially-connected
-      multi-access link with some nodes as single hop IP neighbors
-      and others reachable only over multihop paths. IP multicast
-      transmissions only reach single-hop neighbors which must
-      engage an IP layer service such as Simplified Multicast
-      Forwarding (SMF) <xref target="RFC6621"/> to flood multicast
-      messages to all MANET nodes. Hop-by-hop IP state (e.g., for
-      header compression, flow bindings, etc.) must be maintained
-      at each MANET forwarding hop and may become invalidated due
-      to path changes.</t>
-
-      <t>In L2-MANET, routing and addressing occurs at the MAC layer
-      and the IP TTL/Hop-Limit is not decremented. Both IP address
-      and MAC address uniqueness assurance are essential to avoid
-      conflicts. The MANET interface observes a fully-connected
-      multi-access link with all nodes appearing as single-hop IP
-      neighbors even though some may be separated by multiple L2 hops.
-      IP multicast transmissions are propagated to all MANET nodes even
-      though the L2 service may be required to forward at the layer
-      below IP. Hop-by-hop IP state is maintained only at the MANET
-      ingress and egress nodes and is therefore not invalidated due
-      to interior MANET path changes. Instead, the L2 header must
-      carry additional overhead (including a TTL, packet identification
-      and ancillary addresses) to support forwarding at a layer below IP.</t>
-
-      <t>Since L3-MANETs proactively propagate IP host routes,
-      multicast-based address resolution services can often be
-      satisfied by node-local information thereby reducing
-      dependence on MANET-wide multicast. Multicast-based address
-      resolution services for L2-MANETs can similarly be minimized
-      through proactive distribution of IP to MAC address resolution
-      information.</t>
-
-      <t>In both the L2- and L3-MANET models, MANETs can partition
-      into smaller separate MANETs or merge to form larger MANETs.
-      This presents a challenge to the classical IP subnet model
-      where all nodes within the subnet are presumed to be reachable
-      as single-hop neighbors connected to the same (shared) link.
-      All MANET routers should therefore only configure the MLA
-      and MSP prefixes as on-link prefixes on an overlay interface.
-      This causes the node to invoke address resolution for both
-      MANET-local nodes and target peers in other networks
-      reached via the overlay while avoiding multilink subnet
-      issues <xref target="RFC4903"/> since the overlay appears
-      as a connected NBMA link. MANET Internetworking concepts
-      apply equally to both the L3-MANET and L2-MANET models
-      as discussed throughout the document.</t>
-    </section>
-
     <section anchor="prob" title="MANET Internetworking Problem Statement">
       <t>MANETs present a unique set of Internetworking challenges not
       addressed by earlier works <xref target="RFC5889"/><xref target=
@@ -487,14 +432,13 @@ ipr="trust200902" updates="">
         <t>This means that the MANET cannot simply represent itself
         as an aggregated logical IP subnet prefix at each Internetwork
         access point since all nodes covered by the prefix may not
-        necessarily reside within the same partition. This condition
-        is often termed "multilink subnet" <xref target="RFC4903"/>.
-        However, MANET nodes regard the MLA and MSP prefixes as
-        on-link prefixes on an overlay multilink network interface
-        configured over the MANET interfaces. This causes all addresses
-        covered by those prefixes to appear as on-link via the overlay
-        limited domain while only a (much) smaller subset appear within
-        a local MANET routing region.</t>
+        necessarily reside within the same partition. However, MANET
+        nodes regard the MLA and MSP prefixes as on-link prefixes on
+        an overlay multilink network interface configured over the
+        MANET interfaces. This causes all addresses covered by those
+        prefixes to appear as on-link via the overlay limited domain
+        while only a (much) smaller subset appear within a local
+        MANET routing region.</t>
 
         <t>Additionally, since each partition can transition quickly
         from a first Internetwork access point connection to a diversity
@@ -575,7 +519,7 @@ ipr="trust200902" updates="">
         derived from the MLA or randomly generated with sufficient
         statistical uniqueness properties within the local region.</t>
 
-        <t>In addition to MLAs, L2-MANET routers must also configure
+        <t>In addition to MLAs, MANET routers must also configure
         L2 MAC addresses on their MANET interfaces that are assured
         unique at least within the MANET local routing region. IEEE
         MAC addresses can be either administratively assigned according
@@ -594,12 +538,7 @@ ipr="trust200902" updates="">
         provides a next hop address for routes discovered by the
         MANET routing protocol and supports stateless forwarding
         based on the LLA's embedded MAC address without requiring
-        address resolution messaging. For L3-MANETs, the possibility
-        for duplication exists if each router assigns a MAC address
-        independently but this does not present a problem since
-        any packets forwarded according to a duplicate next hop
-        LLA would simply be deconflicted by the IP layers of
-        the multiple next hop routers.</t>
+        address resolution messaging.</t>
       </section>
 
       <section anchor="pr3" title="Problem 3: Autoconfiguration">
@@ -612,7 +551,7 @@ ipr="trust200902" updates="">
         proxies or gateways of some variety that connect to the mobile
         routing system.</t>
 
-        <t>Nodes in L3-MANET local routing regions that are multiple
+        <t>MANET nodes that are (or may become) multiple
         IP hops away from a MANET border router with an Internetwork
         connection cannot use unmodified standard autoconfiguration
         services including IPv6 Neighbor Discovery (IPv6ND) <xref
@@ -621,10 +560,8 @@ ipr="trust200902" updates="">
         nature. (The DHCPv6 architecture includes a "relay" function,
         but the dynamic nature of links in (multi-link) MANET local
         routing regions may interfere with straightforward application
-        of DHCPv6 relays.) Nodes in L2-MANET local routing regions
-        see the MANET border routers as single-hop IP neighbors,
-        but require a means of selecting specific border routers
-        when multiple are present.</t>
+        of DHCPv6 relays.) MANET nodes also require a means of selecting
+        specific border routers when there are multiple candidates.</t>
 
         <t>Two methods of supporting generalized autoconfiguration for nodes
         within a MANET have been suggested. In a first method (conducted
@@ -693,28 +630,17 @@ ipr="trust200902" updates="">
         header compression state must be synchronized between the
         endpoints of each IP hop.</t>
 
-        <t>For L2-MANET, this means that only the MANET ingress and
-        egress nodes (as well as any intermediate cluster heads) need
-        to synchronize IP state since all other intermediate hops are
-        based on MAC layer addressing and forwarding. For L3-MANET,
-        all MANET hops between the ingress and egress nodes must also
-        synchronize state meaning that resynchronization is required
-        following a path change. A tension therefore exists between
-        L2-MANET which includes larger MAC headers and L3-MANET which
-        may be challenged to maintain state synchronization in dynamic
-        networks.</t>
-
-        <t>For both L2- and L3-MANETs, the MANET can partition into
-        multiple smaller MANETs with some border routers remaining
-        in a first partition and others relocated to other partitions.
-        This means that it is not possible for a MANET to maintain a
-        classic global IP shared subnet where all nodes are presumed
-        to be connected to the same (shared )IP link. The only shared
-        IP prefixes that should appear on the overlay virtual link are
-        the MLA and MSP prefixes, since the overlay ensures reachability
-        for MLA/MNP addressed nodes whether they are located in the
-        local MANET routing region or in a different MANET routing
-        region reached via a border router's connection to the overlay.</t> 
+        <t>MANETs can also partition into multiple smaller MANETs with
+        some border routers remaining in a first partition and others
+        relocated to other partitions. This means that it is not possible
+        for a MANET interface to maintain a classic global IP shared
+        subnet where all nodes are presumed to be connected to the same
+        (shared )IP link. The only shared IP prefixes that should appear
+        on the overlay virtual link are the MLA and MSP prefixes, since
+        the overlay ensures reachability for MLA/MNP addressed nodes
+        whether they are located in the local MANET routing region or
+        in a different MANET routing region reached via a border
+        router's connection to the overlay.</t> 
       </section>
 
       <section anchor="pr5" title="Problem 5: MANET Peer to Internetwork Correspondent">
@@ -875,13 +801,14 @@ ipr="trust200902" updates="">
 
         <t>L2- and L3-MANET solutions have different approaches
         to header compression that may be better suited for some
-        operational scenarios than others. L2-MANET includes larger
-        L2 headers with every packet such that IP header compression
-        state is required at the MANET ingress, egress and IP-addressed
-        cluster head nodes, while L3-MANET uses minimal L2 headers but
-        requires IP header compression state also in MANET intermediate
-        nodes. Any solution proposal must therefore address the need
-        for header compression for multihop packet flows within the
+        operational scenarios than others (see: <xref target=
+        "layer"/>). L2-MANET includes larger L2 headers with every
+        packet such that IP header compression state is required at
+        the MANET ingress, egress and IP-addressed cluster head nodes,
+        while L3-MANET uses minimal L2 headers but requires IP header
+        compression state also in MANET intermediate nodes. Any
+        solution proposal must therefore address the need for
+        header compression for multihop packet flows within the
         context of intended use cases.</t>
       </section>
 
@@ -954,8 +881,8 @@ ipr="trust200902" updates="">
       concepts exposed in this document. The following are acknowledged
       for their helpful comments: Abdussalam Baryun, Lou Berger, Stuart
       Card, Juliusz Chroboczek, Christopher Dearlove, Donald Eastlake,
-      Joel Halpern, Henning Rogge and others who provided valuable
-      input.</t>
+      Joel Halpern, Henning Rogge, Jim Stevens and others who provided
+      valuable input.</t>
     </section>
   </middle>
 
@@ -1029,8 +956,74 @@ ipr="trust200902" updates="">
       </reference>
     </references>
 
+    <section anchor="layer" title="MANET Architectural Layering">
+      <t>MANET routing for nodes operating in a common local routing
+      region can be configured to operate as either a layer-3
+      (L3-MANET) or layer-2 (L2-MANET) service.</t>
+
+      <t>In L3-MANET, routing and addressing occurs at the IP layer
+      and each MANET forwarding hop decrements the IP TTL/Hop-Limit.
+      IP address uniqueness assurance is essential to avoid conflicts,
+      while MAC address collisions may not pose significant operational
+      issues. The MANET interface observes a partially-connected
+      multi-access link with some nodes as single hop IP neighbors
+      and others reachable only over multihop paths. IP multicast
+      transmissions only reach single-hop neighbors which must
+      engage an IP layer service such as Simplified Multicast
+      Forwarding (SMF) <xref target="RFC6621"/> to flood multicast
+      messages to all nodes in the MANET local routing region.
+      Hop-by-hop IP state (e.g., for header compression, flow
+      bindings, etc.) must be maintained at each MANET forwarding
+      hop and may become invalidated due to path changes.</t>
+
+      <t>In L2-MANET, routing and addressing occurs at the MAC layer
+      and the IP TTL/Hop-Limit is not decremented. Both IP address
+      and MAC address uniqueness assurance are essential to avoid
+      conflicts. The MANET interface observes a fully-connected
+      multi-access link with all nodes appearing as single-hop IP
+      neighbors even though some may be separated by multiple L2 hops.
+      IP multicast transmissions are propagated to all MANET nodes even
+      though the L2 service may be required to forward at the layer
+      below IP. Hop-by-hop IP state is maintained only at the MANET
+      ingress and egress nodes and is therefore not invalidated due
+      to interior MANET path changes. Instead, the L2 header must
+      carry additional overhead (including a TTL, packet identification
+      and ancillary addresses) to support forwarding at a layer below IP.</t>
+
+      <t>Since L3-MANETs proactively propagate IP host routes,
+      multicast-based address resolution services can often be
+      satisfied by node-local information thereby reducing
+      dependence on MANET-wide multicast. Multicast-based address
+      resolution services for L2-MANETs can similarly be minimized
+      through proactive distribution of IP to MAC address resolution
+      information.</t>
+
+      <t>In both the L2- and L3-MANET models, MANETs can partition
+      into smaller separate MANETs or merge to form larger MANETs.
+      This presents a challenge to the classical IP subnet model
+      where all nodes within the subnet are presumed to be reachable
+      as single-hop neighbors connected to the same (shared) link.
+      All MANET routers should therefore only configure the MLA
+      and MSP prefixes as on-link prefixes on an overlay interface.
+      This causes the node to invoke address resolution for both
+      MANET-local nodes and target peers in other networks
+      reached via the overlay while avoiding multilink subnet
+      issues <xref target="RFC4903"/> since the overlay appears
+      as a connected NBMA link. MANET Internetworking concepts
+      apply equally to both the L3-MANET and L2-MANET models
+      as discussed throughout the document.</t>
+    </section>
+
     <section title="Change Log">
       <t>&lt;&lt; RFC Editor - remove prior to publication &gt;&gt;</t>
+
+      <t>Differences from -06 to -07:<list style="symbols">
+        <t>Clarified that cellphones can be regarded as *potential*
+        MANET routers even if they never enact that capability.</t>
+
+        <t>Minimized touch-points for the L2/L3 discussion and moved
+        the MANET Layering section to an appendix.</t>
+      </list></t>
 
       <t>Differences from -05 to -06:<list style="symbols">
         <t>Clarified that problem #1 also includes mobility, and that
@@ -1038,7 +1031,6 @@ ipr="trust200902" updates="">
 
         <t>Editorial updates.</t>
       </list></t>
-
 
        <t>Differences from -04 to -05:<list style="symbols">
         <t>Resolutions for some IETF126 comments.</t>
