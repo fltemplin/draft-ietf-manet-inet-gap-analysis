@@ -12,7 +12,7 @@
 <?rfc subcompact="no"?>
 <?rfc strict='yes'?>
 <?rfc iprnotified='no'?>
-<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-08"
+<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-09"
 ipr="trust200902" updates="">
   <front>
     <title abbrev="MANET Internetworking">MANET Internetworking: Problem Statement and Gap Analysis</title>
@@ -59,7 +59,7 @@ ipr="trust200902" updates="">
       </address>
     </author>
 
-    <date day="21" month="August" year="2026"/>
+    <date day="25" month="August" year="2026"/>
 
     <keyword>I-D</keyword>
 
@@ -211,15 +211,16 @@ ipr="trust200902" updates="">
       overlay addresses remain stable even if a border router's
       Internetwork connections change frequently.</t>
 
-      <t>The overlay network BGP routing system must similarly be
-      protected from mobility churn by through the publication of
-      address to Mobility Anchor Point (MAP) mappings in a scalable
-      directory service such as the domain name system (DNS). Efficient
-      path traversal across the overlay must be supported through traffic
-      flow diversity per <xref target="RFC6437"/><xref target="RFC6438"/>
-      with differentiated services applied within each flow. This is
-      especially important for the common case of multilink MANET
-      nodes (such as cellphones with both 5G and Wi-Fi interfaces)
+      <t>The overlay network BGP routing system must similarly
+      be protected from mobility churn through the publication of
+      address/prefix to Mobility Anchor Point (MAP) mappings in a
+      scalable directory service such as the domain name system
+      (DNS). Efficient path traversal across the overlay must be
+      supported through traffic flow diversity per <xref target=
+      "RFC6437"/><xref target="RFC6438"/> with differentiated
+      services applied within each flow. This is especially
+      important for the common case of multilink MANET nodes
+      (such as cellphones with both 5G and Wi-Fi interfaces)
       where overlay flow bindings are necessary for multilink
       coordination.</t>
 
@@ -251,10 +252,8 @@ ipr="trust200902" updates="">
         <t hangText="Client"><vspace/>a MANET router that connects
         a mobile network to a multilink Internetworking service via
         Proxy/Servers in a Non-Broadcast, Multiple Access (NBMA)
-        overlay. The Client consults a directory service (e.g.,
-        the DNS) to discover peer Client-to-MAP associations then
-        conducts address resolution message exchanges with MAPs
-        to discover detailed peer attributes.</t>
+        overlay. The Client conducts address resolution message
+        exchanges with MAPs to discover detailed peer attributes.</t>
 
         <t hangText="Gateway"><vspace/>an overlay multilink network
         service node that runs an interdomain routing protocol (e.g.,
@@ -309,11 +308,11 @@ ipr="trust200902" updates="">
         autoconfiguration and address resolution services to
         Clients. The MAP runs an interdomain routing protocol
         (e.g., BGP) to peer with Gateways, maintains mobile
-        Client associations through dynamic updates to the DNS
-        and responds to address resolution requests for mobile
-        Client attributes. All (reasonably) stable Proxy/Servers
-        are eligible to serve as MAPs as part of a Distributed
-        Mobility Management (DMM) service.</t>
+        Client associations through dynamic reverse DNS updates
+        <xref target="RFC9663"/> and responds to address resolution
+        requests for mobile Client attributes. All (reasonably)
+        stable Proxy/Servers are eligible to serve as MAPs as
+        part of a Distributed Mobility Management (DMM) service.</t>
 
         <t hangText="Mobile Network Prefix (MNP)"><vspace/>a longer IP
         prefix delegated from an MSP (e.g., 2001:db8:1000:2000::/56,
@@ -1115,6 +1114,11 @@ ipr="trust200902" updates="">
 
     <section title="Change Log">
       <t>&lt;&lt; RFC Editor - remove prior to publication &gt;&gt;</t>
+      <t>Differences from -08 to -09:<list style="symbols">
+        <t>Reverted Client DNS mapping requirements (Gateways
+        responsible for this function).</t>
+      </list></t>
+
       <t>Differences from -07 to -08:<list style="symbols">
         <t>Clarified that Clients (and not Gateways) are responsible
         for consulting the DNS to resolve peer-to-MAP information.</t>

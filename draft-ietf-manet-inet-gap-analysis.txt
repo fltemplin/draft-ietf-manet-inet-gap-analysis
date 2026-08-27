@@ -5,12 +5,12 @@
 Network Working Group                                 F. L. Templin, Ed.
 Internet-Draft                                        The Boeing Company
 Intended status: Informational                           D. J. Jakubisin
-Expires: 22 February 2027     National Security Institute, Virginia Tech
-                                                          21 August 2026
+Expires: 26 February 2027     National Security Institute, Virginia Tech
+                                                          25 August 2026
 
 
        MANET Internetworking: Problem Statement and Gap Analysis
-                 draft-ietf-manet-inet-gap-analysis-08
+                 draft-ietf-manet-inet-gap-analysis-09
 
 Abstract
 
@@ -35,7 +35,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 February 2027.
+   This Internet-Draft will expire on 26 February 2027.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Templin & Jakubisin     Expires 22 February 2027                [Page 1]
+Templin & Jakubisin     Expires 26 February 2027                [Page 1]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Templin & Jakubisin     Expires 22 February 2027                [Page 2]
+Templin & Jakubisin     Expires 26 February 2027                [Page 2]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -165,7 +165,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027                [Page 3]
+Templin & Jakubisin     Expires 26 February 2027                [Page 3]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -221,7 +221,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027                [Page 4]
+Templin & Jakubisin     Expires 26 February 2027                [Page 4]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -251,14 +251,15 @@ Internet-Draft            MANET Internetworking              August 2026
    Internetwork connections change frequently.
 
    The overlay network BGP routing system must similarly be protected
-   from mobility churn by through the publication of address to Mobility
-   Anchor Point (MAP) mappings in a scalable directory service such as
-   the domain name system (DNS).  Efficient path traversal across the
-   overlay must be supported through traffic flow diversity per
-   [RFC6437][RFC6438] with differentiated services applied within each
-   flow.  This is especially important for the common case of multilink
-   MANET nodes (such as cellphones with both 5G and Wi-Fi interfaces)
-   where overlay flow bindings are necessary for multilink coordination.
+   from mobility churn through the publication of address/prefix to
+   Mobility Anchor Point (MAP) mappings in a scalable directory service
+   such as the domain name system (DNS).  Efficient path traversal
+   across the overlay must be supported through traffic flow diversity
+   per [RFC6437][RFC6438] with differentiated services applied within
+   each flow.  This is especially important for the common case of
+   multilink MANET nodes (such as cellphones with both 5G and Wi-Fi
+   interfaces) where overlay flow bindings are necessary for multilink
+   coordination.
 
    BGP scaling in the modern Internet backbone accommodates O(10**6)
    prefixes that rarely change.  Frequent advertisement and withdrawal
@@ -276,8 +277,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-
-Templin & Jakubisin     Expires 22 February 2027                [Page 5]
+Templin & Jakubisin     Expires 26 February 2027                [Page 5]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -294,10 +294,9 @@ Internet-Draft            MANET Internetworking              August 2026
    Client
       a MANET router that connects a mobile network to a multilink
       Internetworking service via Proxy/Servers in a Non-Broadcast,
-      Multiple Access (NBMA) overlay.  The Client consults a directory
-      service (e.g., the DNS) to discover peer Client-to-MAP
-      associations then conducts address resolution message exchanges
-      with MAPs to discover detailed peer attributes.
+      Multiple Access (NBMA) overlay.  The Client conducts address
+      resolution message exchanges with MAPs to discover detailed peer
+      attributes.
 
    Gateway
       an overlay multilink network service node that runs an interdomain
@@ -333,7 +332,8 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027                [Page 6]
+
+Templin & Jakubisin     Expires 26 February 2027                [Page 6]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -361,10 +361,10 @@ Internet-Draft            MANET Internetworking              August 2026
       autoconfiguration and address resolution services to Clients.  The
       MAP runs an interdomain routing protocol (e.g., BGP) to peer with
       Gateways, maintains mobile Client associations through dynamic
-      updates to the DNS and responds to address resolution requests for
-      mobile Client attributes.  All (reasonably) stable Proxy/Servers
-      are eligible to serve as MAPs as part of a Distributed Mobility
-      Management (DMM) service.
+      reverse DNS updates [RFC9663] and responds to address resolution
+      requests for mobile Client attributes.  All (reasonably) stable
+      Proxy/Servers are eligible to serve as MAPs as part of a
+      Distributed Mobility Management (DMM) service.
 
    Mobile Network Prefix (MNP)
       a longer IP prefix delegated from an MSP (e.g.,
@@ -389,7 +389,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027                [Page 7]
+Templin & Jakubisin     Expires 26 February 2027                [Page 7]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -445,7 +445,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027                [Page 8]
+Templin & Jakubisin     Expires 26 February 2027                [Page 8]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -501,7 +501,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027                [Page 9]
+Templin & Jakubisin     Expires 26 February 2027                [Page 9]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -557,7 +557,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 10]
+Templin & Jakubisin     Expires 26 February 2027               [Page 10]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -613,7 +613,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 11]
+Templin & Jakubisin     Expires 26 February 2027               [Page 11]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -669,7 +669,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 12]
+Templin & Jakubisin     Expires 26 February 2027               [Page 12]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -725,7 +725,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 13]
+Templin & Jakubisin     Expires 26 February 2027               [Page 13]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -781,7 +781,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 14]
+Templin & Jakubisin     Expires 26 February 2027               [Page 14]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -837,7 +837,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 15]
+Templin & Jakubisin     Expires 26 February 2027               [Page 15]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -893,7 +893,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 16]
+Templin & Jakubisin     Expires 26 February 2027               [Page 16]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -949,7 +949,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 17]
+Templin & Jakubisin     Expires 26 February 2027               [Page 17]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -1005,7 +1005,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 18]
+Templin & Jakubisin     Expires 26 February 2027               [Page 18]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -1061,7 +1061,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 19]
+Templin & Jakubisin     Expires 26 February 2027               [Page 19]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -1117,7 +1117,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 20]
+Templin & Jakubisin     Expires 26 February 2027               [Page 20]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -1173,7 +1173,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 21]
+Templin & Jakubisin     Expires 26 February 2027               [Page 21]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -1229,7 +1229,7 @@ Internet-Draft            MANET Internetworking              August 2026
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 22]
+Templin & Jakubisin     Expires 26 February 2027               [Page 22]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -1285,7 +1285,7 @@ Appendix A.  MANET Architectural Layering
 
 
 
-Templin & Jakubisin     Expires 22 February 2027               [Page 23]
+Templin & Jakubisin     Expires 26 February 2027               [Page 23]
 
 Internet-Draft            MANET Internetworking              August 2026
 
@@ -1324,6 +1324,11 @@ Appendix C.  Change Log
 
    << RFC Editor - remove prior to publication >>
 
+   Differences from -08 to -09:
+
+   *  Reverted Client DNS mapping requirements (Gateways responsible for
+      this function).
+
    Differences from -07 to -08:
 
    *  Clarified that Clients (and not Gateways) are responsible for
@@ -1333,18 +1338,19 @@ Appendix C.  Change Log
 
    Differences from -06 to -07:
 
+
+
+
+Templin & Jakubisin     Expires 26 February 2027               [Page 24]
+
+Internet-Draft            MANET Internetworking              August 2026
+
+
    *  Clarified that cellphones can be regarded as *potential* MANET
       routers even if they never enact that capability.
 
    *  Minimized touch-points for the L2/L3 discussion and moved the
       MANET Layering section to an appendix.
-
-
-
-Templin & Jakubisin     Expires 22 February 2027               [Page 24]
-
-Internet-Draft            MANET Internetworking              August 2026
-
 
    Differences from -05 to -06:
 
@@ -1391,10 +1397,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-Templin & Jakubisin     Expires 22 February 2027               [Page 25]
+Templin & Jakubisin     Expires 26 February 2027               [Page 25]
