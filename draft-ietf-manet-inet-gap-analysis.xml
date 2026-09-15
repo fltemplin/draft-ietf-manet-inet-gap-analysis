@@ -12,7 +12,7 @@
 <?rfc subcompact="no"?>
 <?rfc strict='yes'?>
 <?rfc iprnotified='no'?>
-<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-09"
+<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-10"
 ipr="trust200902" updates="">
   <front>
     <title abbrev="MANET Internetworking">MANET Internetworking: Problem Statement and Gap Analysis</title>
@@ -59,7 +59,7 @@ ipr="trust200902" updates="">
       </address>
     </author>
 
-    <date day="25" month="August" year="2026"/>
+    <date day="27" month="August" year="2026"/>
 
     <keyword>I-D</keyword>
 
@@ -166,7 +166,7 @@ ipr="trust200902" updates="">
       manifested through encapsulation. (This virtual link encapsulation
       creates a new architectural layer termed the "adaptation layer".)
       <xref target="manet-inet"/> illustrates an example of 2 distinct
-      MANET local routing regions connected via the NBMA overlay using
+      MANET local routing regions connected via an NBMA overlay using
       the Internet as transit:</t>
 
       <figure anchor="manet-inet" title="MANET Internetworking">
@@ -190,12 +190,12 @@ ipr="trust200902" updates="">
       MANETs worldwide that want to connect. Since a sustained
       increase in both the world population and number of mobile
       wireless devices is certain, MANET Internetworking must
-      therefore scale to accommodate populations as large as
-      O(10**10) or more, i.e., even though there may be far
-      fewer active nodes at any moment in time. This includes
-      address duplication avoidance through operational assurance
-      since statistical properties alone may be insufficient to
-      avoid duplication in such large populations.</t>
+      therefore scale to accommodate O(10**10) populations, i.e.,
+      even though there may be far fewer active nodes at any
+      instant. This includes address duplication avoidance
+      through operational assurance since statistical properties
+      alone may be insufficient to avoid duplication in such
+      large populations.</t>
 
       <t>Since each MANET is a flexible mobile unit, its border
       routers may continuously encounter different Internetwork access
@@ -269,7 +269,7 @@ ipr="trust200902" updates="">
 
         <t hangText="Internet Protocol (IP) Address"><vspace/>an
         IPv4 <xref target="RFC0791"/> or IPv6 <xref target="RFC8200"/>
-        address assigned to an interface of the node.</t>
+        address assigned to an interface.</t>
 
         <t hangText="Media Access Control (MAC) Address"><vspace/>an
         IEEE EUI-48 or EUI-64 address, or an L2 address format specific
@@ -756,6 +756,31 @@ ipr="trust200902" updates="">
         conveyed across a globally-extended MANET Internetworking
         overlay.</t>
       </section>
+
+      <section anchor="pr9" title="Problem 9: Multiple Overlays">
+        <t>Overlay links include a set of Gateways, Proxy/Servers
+        and (intermittently-connected) Clients that all assign MLAs
+        from a common prefix, e.g., 2001:30:P::/* <xref target=
+        "RFC9374"/>. However, multiple additional overlays may be
+        present that assign different prefixes, e.g., 2001:30:Q::/*,
+        2001:30:R::/*, 2001:30:S::/*, etc.</t>
+
+        <t>Clients that connect to multiple overlay links configure
+        a separate interface for each link. The Client assigns a
+        separate MLA and its associated prefix (see above) to the
+        correct overlay interface then selects the corresponding
+        overlay interface for each packet transmission.</t>
+
+        <t>Clients do not forward packets between their multiple
+        overlay interfaces since this may introduce a routing loop
+        or ingress filtering violation. Instead, Relays can forward
+        packets from a first overlay link to another overlay link
+        subject to policy.</t>
+
+        <t>Note that each overlay establishes a different
+        MANET-of-MANETs (i.e., a different Internet) even if
+        they transit common underlay Internetworks.</t>
+      </section>
     </section>
 
     <section anchor="gap" title="MANET Internetworking Gap Analysis">
@@ -1114,6 +1139,10 @@ ipr="trust200902" updates="">
 
     <section title="Change Log">
       <t>&lt;&lt; RFC Editor - remove prior to publication &gt;&gt;</t>
+      <t>Differences from -09 to -10:<list style="symbols">
+        <t>Added "Problem 9: Multiple Overlays".</t>
+      </list></t>
+
       <t>Differences from -08 to -09:<list style="symbols">
         <t>Reverted Client DNS mapping requirements (Gateways
         responsible for this function).</t>
@@ -1139,20 +1168,6 @@ ipr="trust200902" updates="">
         an isolated MANET router is regarded as a MANET unto itself.</t>
 
         <t>Editorial updates.</t>
-      </list></t>
-
-       <t>Differences from -04 to -05:<list style="symbols">
-        <t>Resolutions for some IETF126 comments.</t>
-
-        <t>Introduced partitions and merges as #1 problem.</t>
-
-        <t>Cited several important RFCs.</t>
-      </list></t>
-
-      <t>Differences from -02 to -04:<list style="symbols">
-        <t>Introduced distinction between L2/L3 MANETs.</t>
-
-        <t>Supporting text added in response to list discussions.</t>
       </list></t>
     </section>
   </back>
