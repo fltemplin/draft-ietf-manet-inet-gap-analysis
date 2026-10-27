@@ -12,10 +12,10 @@
 <?rfc subcompact="no"?>
 <?rfc strict='yes'?>
 <?rfc iprnotified='no'?>
-<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-10"
+<rfc category="info" docName="draft-ietf-manet-inet-gap-analysis-11"
 ipr="trust200902" updates="">
   <front>
-    <title abbrev="MANET Internetworking">MANET Internetworking: Problem Statement and Gap Analysis</title>
+    <title abbrev="MANET Internetworking">MANET Internetworking Architecture, Problem Statement and Gap Analysis</title>
 
     <author fullname="Fred L. Templin" initials="F. L." role="editor"
             surname="Templin">
@@ -59,7 +59,7 @@ ipr="trust200902" updates="">
       </address>
     </author>
 
-    <date day="27" month="August" year="2026"/>
+    <date day="23" month="October" year="2026"/>
 
     <keyword>I-D</keyword>
 
@@ -70,12 +70,12 @@ ipr="trust200902" updates="">
       of mobile nodes. The system may operate in isolation, or may have
       gateways to and interface with a fixed network" (such as the global
       public Internet). This document presents a MANET Internetworking
-      problem statement and gap analysis.</t>
+      architecture, problem statement and gap analysis.</t>
     </abstract>
   </front>
 
   <middle>
-    <section anchor="intro" title="Introduction">
+    <section anchor="intro" title="Introduction and Architecture">
       <t>Mobile Ad-hoc Networks (MANETs) <xref target="RFC2501"/> often
       include mobile nodes with limited range wireless transmission media
       interfaces that establish links via a dynamically changing set of
@@ -130,8 +130,9 @@ ipr="trust200902" updates="">
       router for a stub Wi-Fi MANET behind it and the individual Wi-Fi
       nodes act as dependent nodes. In the latter case, individual 5G/6G
       SideLink nodes can connect the stub MANETs they aggregate across
-      not-so-stubby V2V multihop forwarding paths. MANET Internetworking
-      must therefore be capable of accommodating all such scenarios.</t>
+      not-so-stubby V2V multihop forwarding paths. The MANET Internetworking
+      architecture must therefore be capable of accommodating all such
+      scenarios.</t>
 
       <t>A widely-accepted axiom at the time of this writing suggests
       that there are more cellphones than people on the planet <xref
@@ -143,8 +144,8 @@ ipr="trust200902" updates="">
       as (potential) MANET routers.</t>
 
       <t>A common concern cited for engaging a cellphone as a MANET
-      router is battery consumption, but this not an issue when the
-      device is connected to a power source such as when used inside
+      router is battery consumption, but this limitation is addressed
+      when the device is connected to a power source such as inside
       of a vehicle. Even in dismounted scenarios, a (limited-duration)
       multihop communications capability could provide vital services
       such as for emergency response, disaster relief, search and
@@ -169,7 +170,7 @@ ipr="trust200902" updates="">
       MANET local routing regions connected via an NBMA overlay using
       the Internet as transit:</t>
 
-      <figure anchor="manet-inet" title="MANET Internetworking">
+      <figure anchor="manet-inet" title="MANET Internetworking Architecture">
         <artwork><![CDATA[ 
                              .-(::::::::)
                           .-(::: Global ::)-.
@@ -187,7 +188,7 @@ ipr="trust200902" updates="">
 
       <t>While the figure depicts just 2 MANET local routing
       regions, the NBMA virtual link extends to include any other
-      MANETs worldwide that want to connect. Since a sustained
+      MANETs worldwide that require service. Since a sustained
       increase in both the world population and number of mobile
       wireless devices is certain, MANET Internetworking must
       therefore scale to accommodate O(10**10) populations, i.e.,
@@ -242,7 +243,8 @@ ipr="trust200902" updates="">
       Problem Statement and Use Cases" <xref target="RFC9365"/>
       provides a complimentary analysis but does not explore
       MANET-specific idiosyncrasies. This document presents a
-      MANET Internetworking problem statement and gap analysis.</t> 
+      MANET Internetworking architecture, problem statement
+      and gap analysis.</t> 
     </section>
 
     <section anchor="terminology" title="Terminology">
@@ -412,7 +414,7 @@ ipr="trust200902" updates="">
       </list></t>
     </section>
 
-    <section anchor="prob" title="MANET Internetworking Problem Statement">
+    <section anchor="prob" title="Problem Statement">
       <t>MANETs present a unique set of Internetworking challenges not
       addressed by earlier works <xref target="RFC5889"/><xref target=
       "RFC9365"/>. The following sub-sections provide MANET Internetworking
@@ -783,7 +785,7 @@ ipr="trust200902" updates="">
       </section>
     </section>
 
-    <section anchor="gap" title="MANET Internetworking Gap Analysis">
+    <section anchor="gap" title="Gap Analysis">
       <t>Many current and past solution proposals address most aspects
       of the problems articulated in the previous section, but often
       have functional gaps that do not fully satisfy the requirements.
@@ -872,13 +874,220 @@ ipr="trust200902" updates="">
       </section>
     </section>
 
-    <section anchor="sol" title="MANET Internetworking Solution Proposal Analysis">
+    <section anchor="sol" title="Solution Proposal Analysis">
       <t>The following sections provide an analysis of solution proposals
-      with respect to the problem statements and gap analysis. Any solution
-      proposal must explain how it addresses the problems while also showing
-      how it either does or does not satisfy the technological gaps.</t>
+      with respect to the architecture, problem statement and gap analysis.
+      Any solution proposal must explain how it addresses the problems while
+      also showing how it either does or does not satisfy the technological
+      gaps.</t>
 
       <section anchor="sol1" title="AERO/OMNI">
+        <t>Automatic Extended Route Optimization(AERO) and the Overlay
+        Multilink Network (OMNI) Interface provide a complete MANET
+        Internetworking architecture solution while addressing all
+        problems and gaps <xref target="I-D.templin-6man-aero3"/>
+        <xref target="I-D.templin-6man-omni3"/>
+        <xref target="I-D.templin-6man-aero-omni-amen"/>.</t>
+
+        <t>The AERO/OMNI solution is based on an NBMA virtual link
+        model manifested by IPv6-in-IPv6 encapsulation to provide a
+        new architectural layer termed the adaptation layer. This
+        supports a multi-access link view with all nodes on the link
+        appearing as single-hop neighbors from the perspective of
+        IPv6 Neighbor Discovery (IPv6ND) control messaging. The NBMA
+        link model supports a MANET-of-MANETs abstraction where peers
+        in different MANET local routing regions can engage end-to-end
+        communications via a virtual overlay over the underlying
+        Internetwork(s) as transit.</t>
+
+        <t>The following list outlines the AERO/OMNI approach to the
+        problems identified in <xref target="prob"/>:</t>
+
+      <t><list style="hanging">
+        <t hangText="Problem 1: Mobility, Partitions and Merges"><vspace/>
+        The AERO/OMNI solution addresses MANET mobility, partitions and
+        merges by maintaining MANET routing protocol knowledge of the
+        current set of peers in each distinct local routing region.
+        Address resolution over the OMNI link can then leverage this
+        local knowledge to determine whether a prospective peer resides
+        locally or must be reached via an OMNI link wide-area exchange.
+        This may present the outward appearance of a multilink subnet
+        in the underlay, but the OMNI interface presents the adaptation
+        layer overlay to the IP layer as a connected unified link.
+        AERO/OMNI manage global mobility events in the overlay via
+        Distributed Mobility Management (DMM), Segment Routing, BGP
+        routing and dynamic updates to the DNS.</t>
+
+        <t hangText="Problem 2: Multilink Local Addressing"><vspace/>
+        AERO/OMNI nodes assign a unique and distinct Multilink Local
+        Address (MLA) to each OMNI interface, where the OMNI interface
+        is configured over one or more underlying interfaces. This
+        ensures secured, unique and collision-free addressing in
+        the overlay even when different flows using the same MLA
+        traverse different underlying interfaces.</t>
+
+        <t hangText="Problem 3: Autoconfiguration"><vspace/>
+        Since the AERO/OMNI NBMA virtual interface regards the
+        entire MANET-of-MANETs as a fully-connected shared link,
+        standard autoconfiguration services such as the Dynamic
+        Host Configuration Protocol for IPv6 (DHCPv6) and IPv6ND
+        can traverse the link in a single (virtual) hop to obtain
+        globally routable Mobile Network Prefix (MNP) delegations
+        useful for both on- and off-link communications.</t>
+
+        <t hangText="Problem 4: MANET-local Communications"><vspace/>
+        The AERO/OMNI virtual link supports peer-to-peer communications
+        between peers located in the same MANET local routing region as
+        an overlay over the underlying MANET. This allows for MLA
+        and/or MNP addressing in the overlay while each underlay
+        MANET may be based on either the L3-MANET or L2-MANET model
+        (see: <xref target="layer"/>). This provides upper layers
+        with a virtual single-hop view in the overlay while underlay
+        paths may require multiple physical hops.</t>
+
+        <t hangText="Problem 5: MANET Peer to Internetwork Correspondent"><vspace/>
+        AERO/OMNI presents local MANET peer Clients with a set of nearby
+        Internetwork-based Proxy/Servers, Gateways and Mobility Anchor
+        Points (MAPs) that support adaptation layer forwarding to Relays
+        located close to prospective Internetwork correspondents. When a
+        local MANET Client sends packets to Internetwork correspondents,
+        it can use an MNP-based source address that will remain stable
+        across mobility events and/or Proxy/Server changes as supported
+        by the AERO/OMNI service. The Client then engages address
+        resolution over the OMNI link to discover the Relay nearest
+        the target.</t>
+
+        <t hangText="Problem 6: Internetwork Correspondent to MANET Peer"><vspace/>
+        When an Internetwork correspondent sends packets to an MNP-addressed
+        MANET peer Client, standard Internet routing directs the packets to
+        a nearby Relay managed by the Mobility Service Provider (MSP)
+        responsible for maintaining the OMNI link. AERO/OMNI then presents
+        the Relay with a set of Internetwork-based Proxy/Servers, Gateways
+        and MAPs that maintain forwarding information for the MANET peer
+        Client. The Relay then engages address resolution over the OMNI
+        link to discover the Proxy/Server nearest the target.</t>
+
+        <t hangText="Problem 7: Peer-to-Peer Between Different MANETs"><vspace/>
+        When the prospective peer Clients are located in different MANET
+        local routing regions joined by the OMNI link, the OMNI link
+        Proxy/Servers, Gateways and MAPs provide the mobility-aware
+        overlay service necessary for true peer-to-peer communications.
+        The source peer first invokes address resolution to discover
+        from the MAP the current serving Proxy/Server(s) for the target
+        peer. The source peer then presents its packets for forwarding
+        over a first-hop Proxy/Server, then through any intermediate
+        Gateways and finally to a last-hop Proxy/Server for the target
+        peer. The target peer then sends return packets following a
+        corresponding address resolution and OMNI link traversal in
+        the reverse direction. Importantly, the forward and reverse
+        paths are unidirectional and need not traverse the same
+        virtual overlay intermediate systems.</t>
+
+        <t hangText="Problem 8: Stub MANET to Not-so-stubby MANET Connections"><vspace/>
+        AERO/OMNI Clients that serve as MANET border routers can either
+        terminate the Internetwork OMNI link and present a private
+        OMNI link view to downstream dependent MANET nodes in the
+        stub model or extend the Internetwork OMNI link downstream
+        in the not-so-stubby model. In the former case, the MANET
+        border router can be configured to act as a NAT and supply
+        private addresses to downstream dependent nodes. In the
+        latter case, all MANET nodes can use overlay routable MLAs
+        and/or globally routable MNP addresses.</t>
+
+        <t hangText="Problem 9: Multiple Overlays"><vspace/>
+        AERO/OMNI nodes can connect to multiple OMNI links that are
+        distinguished by unique MLA prefixes. Each link represents
+        a distinct and different overlay even if they traverse a
+        common underlay.</t>
+      </list></t>
+
+      <t>AERO/OMNI further address the significant gaps that can
+      interfere with truly resilient communications. The following
+      gaps are addressed:</t>
+
+      <t><list style="hanging">
+        <t hangText="Gap 1: Multiple Heterogeneous MANET Interfaces"><vspace/>
+        Heterogeneous MANET interfaces can present challenges for some
+        architectures, but they can be orchestrated in any of several
+        ways within the AERO/OMNI architecture. If the heterogenous
+        interfaces have a common MAC address format with sufficient
+        uniqueness properties, common performance profiles, and a
+        common maximum packet size, the interfaces can be combined in
+        a single MANET routing protocol instance with multihop routes
+        traversing the heterogeneous media. For diverse media types,
+        however, redistribution of host routes between the media types
+        should be avoided, with some multi-interface nodes configured
+        to act as cluster heads or with a separate MANET routing protocol
+        instance configured over each media type. In all cases, the OMNI
+        overlay virtual interface configures a single unique MLA so that
+        the multiple underlay interfaces appear as a single unified
+        MANET.</t>
+
+        <t hangText="Gap 2: Maximum Packet Size Diversity"><vspace/>
+        Each IP link type configures a maximum packet size termed the
+        Maximum Transmission Unit (MTU), and the minimum link MTU in a
+        path consisting of the concatenation of multiple links is termed
+        the Path MTU (PMTU). The minimum link MTU for IPv6 is 1280 octets
+        while the minimum for IPv4 is only 68 octets. In actual practice,
+        many links (both IPv4 and IPv6) configure MTUs as large as
+        1500 octets or sometimes even larger still but the only
+        guarantee is the assured minimum. Encapsulation always causes
+        an increase in size that may cause a packet to exceed a link
+        or path MTU by a small amount. Many encapsulation-based
+        solutions ignore the guaranteed minimums with the optimistic
+        hope that packets up to a certain size will be accommodated,
+        but this runs the risk of a path MTU black hole when a
+        restricting link occurs in the path. The AERO/OMNI solution
+        uniquely accommodates original packets of all sizes by
+        including a fragmentation and reassembly service along
+        with probe-based path MTU discovery to determine a maximum
+        fragment size for the path. It further provides packet
+        sizing feedback to encourage sources to use the best
+        packet size for the path with minimizing fragmentation
+        as a primary goal.</t>
+
+        <t hangText="Gap 3: Header Compression"><vspace/>
+        Since encapsulation always results in additional overhead
+        for each packet, this can represent a significant efficiency
+        reduction especially for low end wireless data links and/or
+        low end devices with limited battery lifetime. AERO/OMNI
+        addresses this concern by supporting mandatory per-flow
+        header compression to avoid continually sending redundant
+        encapsulation headers and in many instances also
+        significant portions of the original IP packet headers.
+        AERO/OMNI use secured multilink pilot (MP) control
+        packets to seed header compression state in the path
+        so that data packets with compressed headers can be
+        forwarded with a significant overhead savings.</t>
+
+        <t hangText="Gap 4: MANET Border Router Discovery and Engagement"><vspace/>
+        AERO/OMNI Clients discover nearby (MAP) Proxy/Servers for
+        the OMNI link by resolving a DNS domain name to discover
+        a Potential Router List (PRL). However, MANET nodes that
+        do not connect directly to a serving Internetwork need
+        some way to discover an AERO/OMNI Client acting as a
+        MANET border router. This is accomplished by examining
+        the MANET routing protocol for the advertisement of an
+        OMNI link anycast address injected by an eligible MANET
+        border router. AERO/OMNI MANET nodes located multiple hops
+        from the MANET border can then engage the MANET border
+        router as an AERO/OMNI proxy Client by including a
+        Segment Routing Header (SRH) naming the border router
+        as an intermediate hop.</t>
+
+        <t hangText="Gap 5: MANET Internetworking Security"><vspace/>
+        The AERO/OMNI service supports a multi-layer security architecture
+        with datalink and lower layer security for MANET admission control,
+        integrity and confidentiality (e.g., via MACsec IEEE802.1AE) and
+        with IPsec for Proxy/Server to Gateway interconnections in the
+        Internetwork. SSL/TLS is used to ensure end-to-end transport layer
+        security, but a gap exists for securing the control messages
+        and routing integrity for the connections between edge network
+        MANETs and the Internetworking core. AERO/OMNI addresses this
+        gap through the use of HMAC and/or SEND signatures on control
+        messages as well as HMAC signatures in Segment Routing Headers
+        that update routing state.</t>
+      </list></t>
       </section>
 
       <section anchor="sol2" title="NEMO (RFC3963)">
@@ -967,6 +1176,12 @@ ipr="trust200902" updates="">
       <?rfc include="reference.RFC.8966"?>
 
       <?rfc include="reference.RFC.3724"?>
+
+      <?rfc include="reference.I-D.templin-6man-aero3"?>
+
+      <?rfc include="reference.I-D.templin-6man-omni3"?>
+
+      <?rfc include="reference.I-D.templin-6man-aero-omni-amen"?>
 
       <reference anchor="STATISTA">
         <front>
@@ -1139,6 +1354,12 @@ ipr="trust200902" updates="">
 
     <section title="Change Log">
       <t>&lt;&lt; RFC Editor - remove prior to publication &gt;&gt;</t>
+      <t>Differences from -10 to -11:<list style="symbols">
+        <t>Added section text on AERO/OMNI solution proposal.</t>
+
+        <t>Added "architecture" to title.</t>
+      </list></t>
+
       <t>Differences from -09 to -10:<list style="symbols">
         <t>Added "Problem 9: Multiple Overlays".</t>
       </list></t>
@@ -1161,13 +1382,6 @@ ipr="trust200902" updates="">
 
         <t>Minimized touch-points for the L2/L3 discussion and moved
         the MANET Layering section to an appendix.</t>
-      </list></t>
-
-      <t>Differences from -05 to -06:<list style="symbols">
-        <t>Clarified that problem #1 also includes mobility, and that
-        an isolated MANET router is regarded as a MANET unto itself.</t>
-
-        <t>Editorial updates.</t>
       </list></t>
     </section>
   </back>
